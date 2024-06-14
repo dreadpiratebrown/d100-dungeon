@@ -1,0 +1,12 @@
+.main {
+  margin: 0 auto;
+  max-width: 1198px;
+}
+
+.newGame {
+  background: var(--blue);
+  color: #fff;
+  float: right;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}

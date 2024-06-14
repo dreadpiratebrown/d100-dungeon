@@ -1,0 +1,41 @@
+export const useHeroInfoStore = (set) => ({
+  name: "",
+  path: "",
+  race: "",
+  rep: 1,
+  fate: 3,
+  life: 3,
+  gold: 0,
+  primaryHP: 20,
+  adjustedHP: 0,
+  poison: 0,
+  disease: 0,
+  setName: (value) => set({ name: value }),
+  setPath: (value) => set({ path: value }),
+  setRace: (value) => set({ race: value }),
+  setRep: (value) => set((state) => ({ rep: state.rep + value })),
+  setFate: (value) => set((state) => ({ fate: state.fate + value })),
+  setLife: (value) => set((state) => ({ life: state.life + value })),
+  setGold: (value) => set((state) => ({ gold: state.gold + value })),
+  setPrimaryHP: (value) =>
+    set((state) => ({ primaryHP: state.primaryHP + value })),
+  setAdjustedHP: (value) =>
+    set((state) => ({ adjustedHP: state.adjustedHP + value })),
+  setPoison: (value) => set((state) => ({ poison: state.poison + value })),
+  setDisease: (value) => set((state) => ({ disease: state.disease + value })),
+  resetHero: () => {
+    set({
+      name: "",
+      path: "",
+      race: "",
+      rep: 1,
+      fate: 3,
+      life: 3,
+      gold: 0,
+      primaryHP: 20,
+      adjustedHP: 0,
+      poison: 0,
+      disease: 0,
+    });
+  },
+});

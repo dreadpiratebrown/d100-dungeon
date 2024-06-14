@@ -1,0 +1,315 @@
+.sheet h2 {
+  text-align: center;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.heroInfo {
+  border: 1px solid #000000;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.heroInfo div {
+  line-height: 2rem;
+  padding: 6px;
+}
+
+.light {
+  grid-row: span 2;
+}
+
+div.repFateLife {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  padding: 0;
+}
+
+.repFateLife div {
+  border-right: 1px solid #000000;
+}
+
+.borderRight {
+  border-right: 1px solid #000000;
+}
+
+.borderBottomRight {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.stats {
+  border-bottom: 1px solid #000000;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.stats > div {
+  border: 1px solid #000000;
+  border-bottom: none;
+  border-right: none;
+  padding: 6px;
+}
+
+.stats > div:nth-child(5n) {
+  border-right: 1px solid #000000;
+}
+
+.stats > div.noBorder {
+  border: none;
+}
+
+.equipment {
+  margin-top: 2rem;
+}
+
+.equipment table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.equipment th {
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0;
+}
+
+.equipment td {
+  border: 1px solid #000;
+  padding: 6px;
+}
+
+@property --width {
+  syntax: "<length>";
+  inherits: false;
+  initial: "2rem";
+}
+
+.customWidth {
+  width: var(--width);
+}
+
+.equipment tfoot td[colspan] {
+  border: none;
+}
+
+.needs {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  margin-top: 1rem;
+}
+
+.belt {
+  border: 1px solid #000;
+  border-right: none;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  margin: 1rem 0;
+}
+
+.belt div {
+  border-right: 1px solid #000;
+  padding: 6px;
+}
+
+.trackers {
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+.trackers > div {
+  padding: 6px;
+}
+
+.keys {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  order: 1;
+}
+
+.levers {
+  border-right: 1px solid #000;
+  order: 3;
+}
+
+.poison {
+  border-bottom: 1px solid #000;
+  order: 2;
+}
+
+.disease {
+  order: 4;
+}
+
+.other {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.other > div {
+  padding: 6px;
+}
+
+.skills,
+.spellbook,
+.hpObjTime {
+  border: 1px solid #000;
+}
+
+.spellbook,
+.hpObjTime {
+  border-left: none;
+}
+
+.skills table,
+.spellbook table,
+.hp,
+.time {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.skills th,
+.spellbook th,
+.hpObjTime th {
+  font-weight: 400;
+}
+
+.skills th,
+.skills td,
+.spellbook th,
+.spellbook td,
+.hp th,
+.hp td,
+.objectives,
+.time th,
+.time td {
+  border-bottom: 1px solid #000;
+  padding: 6px;
+}
+
+.time th {
+  text-align: left;
+}
+
+.time td {
+  border-right: 1px solid #000;
+  height: 98px;
+  vertical-align: bottom;
+  width: 16.6667%;
+}
+
+.time td:first-child {
+  border-left: 1px solid #000;
+}
+
+.oil {
+  background: url("./assets/candle.svg") center 5px / 20px auto no-repeat;
+}
+
+.encounter {
+  background: url("./assets/dagger.svg") center 5px / 20px auto no-repeat;
+  position: relative;
+}
+
+.encounter:nth-child(3)::before {
+  content: "4";
+}
+
+.encounter:nth-child(1)::before {
+  content: "5";
+}
+
+.encounter:nth-child(5)::before {
+  content: "6";
+}
+
+.encounter::before {
+  font-size: 12px;
+  left: 34px;
+  position: absolute;
+  top: 10px;
+}
+
+.dinner {
+  background: url("./assets/dinner.svg") center 5px / 20px auto no-repeat;
+}
+
+.current {
+  border-left: 1px solid #000;
+  vertical-align: bottom;
+}
+
+.backpack {
+  margin-top: 2rem;
+}
+
+.backpackRow2 {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.itemsWithDamage,
+.itemsWithoutDamage,
+.empire,
+.quest {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.itemsWithDamage th,
+.itemsWithoutDamage th,
+.empire th,
+.quest th {
+  font-weight: 400;
+}
+
+.itemsWithDamage th,
+.itemsWithDamage td,
+.itemsWithoutDamage th,
+.itemsWithoutDamage td,
+.empire th,
+.empire td,
+.quest th,
+.quest td {
+  border: 1px solid #000;
+  height: 37px;
+  padding: 6px;
+}
+
+.empire td {
+  text-align: center;
+}
+
+.questTracker {
+  columns: 5;
+  list-style: none;
+  margin: 1rem 0 0 0;
+  padding: 0;
+}
+
+.questTracker li {
+  line-height: 1.55;
+  text-align: center;
+}
+
+.newQuest {
+  background-color: var(--blue);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}

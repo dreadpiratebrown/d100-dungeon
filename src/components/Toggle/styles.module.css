@@ -1,0 +1,40 @@
+.toggle {
+  display: inline-block;
+  margin-left: 3px;
+  position: relative;
+  width: 16px;
+}
+
+.toggle label {
+  border: 1px solid #000;
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+
+.toggle input:checked ~ label {
+  background: #000;
+}
+
+.toggle.pip label {
+  border-radius: 50%;
+}
+
+.toggle.star label {
+  background: url("star.svg") center center / cover no-repeat #000;
+  border-radius: 50%;
+}
+
+.toggle.upgrade label {
+  background: url("arrow.svg") center center / 125% 125% no-repeat;
+  border-radius: 50%;
+}
+
+.toggle.destroy label {
+  background: url("xmark.svg") center center / contain no-repeat;
+}
+
+.toggle input {
+  position: absolute;
+  left: -9999px;
+}

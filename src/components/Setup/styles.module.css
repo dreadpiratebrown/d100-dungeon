@@ -1,0 +1,31 @@
+.error {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.btnNext,
+.btnPlay {
+  background-color: var(--green);
+  float: right;
+}
+
+.btnPrev {
+  background-color: var(--blue);
+  color: #fff;
+  float: left;
+}
+
+.btnRandom {
+  background-color: var(--orange);
+}
+
+.btnKeep,
+.btnReroll {
+  background-color: var(--silver);
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.btnEquip {
+  background-color: var(--green);
+}
