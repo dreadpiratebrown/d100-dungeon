@@ -16,8 +16,11 @@ const HeroInfo = () => {
       <div id="race" className={styles.borderBottomRight}>
         RACE: {state.race}
       </div>
-      <div id="light" className={styles.light}>
-        <SunLight />
+      <div
+        id="light"
+        className={state.currentQuest.darkness ? styles.dark : styles.light}
+      >
+        {state.currentQuest.darkness ? <SunDark /> : <SunLight />}
         <br />
         -20 Dark
       </div>

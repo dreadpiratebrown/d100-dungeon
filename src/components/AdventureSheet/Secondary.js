@@ -1,5 +1,11 @@
+import { useState } from "react";
+import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { Toggle } from "../../components";
+import { Modal } from "../../components";
 import SkillRow from "./SkillRow";
+import { Oil } from "../Quest/Oil";
+import { Encounter } from "../Quest/Encounter";
+import { Food } from "../Quest/Food";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 import { ReactComponent as Clock1 } from "./assets/clock-one.svg";
@@ -16,8 +22,13 @@ import { ReactComponent as Clock11 } from "./assets/clock-eleven.svg";
 import { ReactComponent as Clock12 } from "./assets/clock-twelve.svg";
 
 const Secondary = () => {
+  const [modal, setModal] = useState(false);
+  const [type, setType] = useState("");
   const primaryHP = useBoundStore((state) => state.primaryHP);
   const adjustedHP = useBoundStore((state) => state.adjustedHP);
+  const time = useBoundStore((state) => state.currentQuest.timeTracker);
+  const passTime = useBoundStore((state) => state.passTime);
+
   return (
     <div id="secondary">
       <div className={styles.trackers}>
@@ -173,42 +184,208 @@ const Secondary = () => {
             </thead>
             <tbody>
               <tr>
-                <td className={styles.oil}>
+                <td
+                  className={styles.oil}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 1 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 0) {
+                      passTime();
+                      setType("oil");
+                      setModal(true);
+                    }
+                  }}
+                >
                   <Clock1 />
                 </td>
-                <td>
+                <td
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 2 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 1) {
+                      passTime();
+                    }
+                  }}
+                >
                   <Clock2 />
                 </td>
-                <td className={styles.encounter}>
+                <td
+                  className={styles.encounter}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 3 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 2) {
+                      passTime();
+                      setType("encounter");
+                      const roll = new DiceRoll("1d10");
+                      setModal(roll.total <= 4);
+                    }
+                  }}
+                >
                   <Clock3 />
                 </td>
-                <td>
+                <td
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 4 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 3) {
+                      passTime();
+                    }
+                  }}
+                >
                   <Clock4 />
                 </td>
-                <td className={styles.oil}>
+                <td
+                  className={styles.oil}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 5 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 4) {
+                      passTime();
+                      setType("oil");
+                      setModal(true);
+                    }
+                  }}
+                >
                   <Clock5 />
                 </td>
-                <td>
+                <td
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 6 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 5) {
+                      passTime();
+                    }
+                  }}
+                >
                   <Clock6 />
                 </td>
               </tr>
               <tr>
-                <td className={styles.encounter}>
+                <td
+                  className={styles.encounter}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 7 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 6) {
+                      passTime();
+                      setType("encounter");
+                      const roll = new DiceRoll("1d10");
+                      setModal(roll.total <= 5);
+                    }
+                  }}
+                >
                   <Clock7 />
                 </td>
-                <td>
+                <td
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 8 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 7) {
+                      passTime();
+                    }
+                  }}
+                >
                   <Clock8 />
                 </td>
-                <td className={styles.oil}>
+                <td
+                  className={styles.oil}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 9 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 8) {
+                      passTime();
+                      setType("oil");
+                      setModal(true);
+                    }
+                  }}
+                >
                   <Clock9 />
                 </td>
-                <td>
+                <td
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 10 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 9) {
+                      passTime();
+                    }
+                  }}
+                >
                   <Clock10 />
                 </td>
-                <td className={styles.encounter}>
+                <td
+                  className={styles.encounter}
+                  style={{
+                    backgroundColor:
+                      time % 12 >= 11 || (time > 0 && time % 12 === 0)
+                        ? "var(--silver)"
+                        : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 10) {
+                      passTime();
+                      setType("encounter");
+                      const roll = new DiceRoll("1d10");
+                      setModal(roll.total <= 6);
+                    }
+                  }}
+                >
                   <Clock11 />
                 </td>
-                <td className={styles.dinner}>
+                <td
+                  className={styles.dinner}
+                  style={{
+                    backgroundColor:
+                      time > 0 && time % 12 === 0 ? "var(--silver)" : "#fff",
+                  }}
+                  onClick={() => {
+                    if (time % 12 === 11) {
+                      passTime();
+                      setType("food");
+                      setModal(true);
+                    }
+                  }}
+                >
                   <Clock12 />
                 </td>
               </tr>
@@ -216,6 +393,11 @@ const Secondary = () => {
           </table>
         </div>
       </div>
+      <Modal openModal={modal}>
+        {type === "oil" && <Oil onCancel={() => setModal(false)} />}
+        {type === "encounter" && <Encounter onCancel={() => setModal(false)} />}
+        {type === "food" && <Food onCancel={() => setModal(false)} />}
+      </Modal>
     </div>
   );
 };

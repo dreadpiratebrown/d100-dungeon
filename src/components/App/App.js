@@ -83,6 +83,7 @@ export const App = () => {
           store.resetHero();
           store.resetSkills();
           store.resetEquipment();
+          store.resetQuests();
           setModal(true);
         }}
         className={styles.newGame}

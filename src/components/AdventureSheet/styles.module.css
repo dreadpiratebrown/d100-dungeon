@@ -23,8 +23,13 @@
   padding: 6px;
 }
 
-.light {
+.light,
+.dark {
   grid-row: span 2;
+}
+
+.dark {
+  background-color: var(--silver);
 }
 
 div.repFateLife {

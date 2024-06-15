@@ -1,5 +1,5 @@
 export const useQuestsStore = (set) => ({
-  completedQuests: [1, 2],
+  completedQuests: [],
   failedQuests: [],
   currentQuest: {
     d100: [],
@@ -8,6 +8,8 @@ export const useQuestsStore = (set) => ({
     success: {},
     failure: {},
     description: "",
+    timeTracker: 0,
+    darkness: false,
   },
   addCompletedQuest: () =>
     set((state) => ({
@@ -29,6 +31,22 @@ export const useQuestsStore = (set) => ({
         description: quest.description,
       },
     })),
+  passTime: () => {
+    set((state) => ({
+      currentQuest: {
+        ...state.currentQuest,
+        timeTracker: state.currentQuest.timeTracker + 1,
+      },
+    }));
+  },
+  toggleDarkness: () => {
+    set((state) => ({
+      currentQuest: {
+        ...state.currentQuest,
+        darkness: !state.currentQuest.darkness,
+      },
+    }));
+  },
   resetQuests: () => {
     set({
       completedQuests: [],
@@ -40,6 +58,8 @@ export const useQuestsStore = (set) => ({
         success: {},
         failure: {},
         description: "",
+        timeTracker: 0,
+        darkness: false,
       },
     });
   },
