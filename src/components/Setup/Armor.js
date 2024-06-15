@@ -5,6 +5,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faLock,
+  faRefresh,
   faRotate,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,9 +14,11 @@ import { armor } from "../../shared/armor";
 import styles from "./styles.module.css";
 
 const Armor = ({ onPrev, onNext }) => {
-  const state = useBoundStore();
   const [armors, setArmors] = useState([]);
   const [equipped, setEquipped] = useState(false);
+  const state = useBoundStore();
+  const fate = useBoundStore((state) => state.fate);
+  const setFate = useBoundStore((state) => state.setFate);
 
   const rollArmor = () => {
     const roll = new DiceRoll("d100");
@@ -83,8 +86,8 @@ const Armor = ({ onPrev, onNext }) => {
       locations.push(rolledArmor[0].location);
       temp.push(...rolledArmor);
     }
-    setArmors([...armors, ...temp]);
-  }, []);
+    setArmors([...temp]);
+  }, [fate]);
   checkForDupes();
 
   return (
@@ -129,6 +132,15 @@ const Armor = ({ onPrev, onNext }) => {
           <button onClick={() => equipArmor()} className={styles.btnEquip}>
             Equip these <FontAwesomeIcon icon={faThumbsUp} />
           </button>
+          {fate > 0 && (
+            <>
+              <br />
+              <br />
+              <button onClick={() => setFate(-1)} className={styles.btnRandom}>
+                Reroll (Cost: 1 Fate) <FontAwesomeIcon icon={faRefresh} />
+              </button>
+            </>
+          )}
         </p>
       )}
       {equipped && (
