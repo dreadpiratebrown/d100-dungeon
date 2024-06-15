@@ -119,7 +119,13 @@ const Equipment = () => {
           OIL
           <br />
           {[...Array(20)].map((toggle, i) => (
-            <Toggle mode="pip" key={i} defaultChecked={i + 1 <= state.oil} />
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= state.oil}
+              tracker={state.setOil}
+              flag="darkness"
+            />
           ))}
         </div>
         <div>
