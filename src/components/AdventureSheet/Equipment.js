@@ -81,7 +81,7 @@ const Equipment = () => {
             dmgMod="-"
             location="Off H"
             as={state.weapon.hands === 2 ? "" : "S:"}
-            item={state.weapon.hands === 2 ? state.weapon : null}
+            item={state.weapon.hands === 2 ? state.weapon : state.offh}
           />
           <EquipmentRow
             d10="8"
@@ -123,7 +123,11 @@ const Equipment = () => {
               mode="pip"
               key={i}
               defaultChecked={i + 1 <= state.oil}
-              tracker={state.setOil}
+              tracker={
+                i + 1 <= state.oil
+                  ? () => state.setOil(-1)
+                  : () => state.setOil(1)
+              }
               flag="darkness"
             />
           ))}
@@ -132,14 +136,32 @@ const Equipment = () => {
           FOOD
           <br />
           {[...Array(10)].map((toggle, i) => (
-            <Toggle mode="pip" key={i} defaultChecked={i + 1 <= state.food} />
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= state.food}
+              tracker={
+                i + 1 <= state.food
+                  ? () => state.setFood(-1)
+                  : () => state.setFood(1)
+              }
+            />
           ))}
         </div>
         <div>
           PICKS
           <br />
           {[...Array(30)].map((toggle, i) => (
-            <Toggle mode="pip" key={i} defaultChecked={i + 1 <= state.picks} />
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= state.picks}
+              tracker={
+                i + 1 <= state.picks
+                  ? () => state.setPicks(-1)
+                  : () => state.setPicks(1)
+              }
+            />
           ))}
         </div>
       </div>

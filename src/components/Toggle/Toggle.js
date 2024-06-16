@@ -7,7 +7,7 @@ export const Toggle = ({
   defaultChecked,
   onChange = () => {},
   tracker,
-  flag,
+  flag = "",
 }) => {
   const [checked, setChecked] = useState(defaultChecked);
   const state = useBoundStore();
@@ -31,7 +31,7 @@ export const Toggle = ({
         defaultChecked={defaultChecked}
         checked={checked}
         onChange={() => {
-          tracker(checked ? -1 : 1);
+          tracker();
           toggleFlag();
           setChecked(!checked);
         }}

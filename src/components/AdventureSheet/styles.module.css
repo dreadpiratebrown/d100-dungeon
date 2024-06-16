@@ -110,6 +110,18 @@ div.repFateLife {
   border: none;
 }
 
+.btnEquip,
+.btnUnequip {
+  background-color: var(--red);
+  float: right;
+  padding: 0.25rem 0.5rem;
+}
+
+.btnEquip {
+  background-color: var(--blue);
+  color: #fff;
+}
+
 .needs {
   display: grid;
   grid-template-columns: repeat(3, auto);

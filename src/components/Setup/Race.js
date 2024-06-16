@@ -110,7 +110,6 @@ const Race = ({ onPrev, onNext }) => {
           value="Dwarf"
           onChange={(e) => setDwarf()}
           checked={race === "Dwarf"}
-          checked={race === "Dwarf"}
         />{" "}
         Dwarf
       </label>
@@ -122,7 +121,6 @@ const Race = ({ onPrev, onNext }) => {
           value="Elf"
           onChange={(e) => setElf()}
           checked={race === "Elf"}
-          checked={race === "Elf"}
         />{" "}
         Elf
       </label>
@@ -133,7 +131,6 @@ const Race = ({ onPrev, onNext }) => {
           name="race"
           value="Human"
           onChange={(e) => setHuman()}
-          checked={race === "Human"}
           checked={race === "Human"}
         />{" "}
         Human

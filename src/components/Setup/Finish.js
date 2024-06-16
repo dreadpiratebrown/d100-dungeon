@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
+import names from "random-names-generator";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
 const Finish = ({ onPrev, onCancel }) => {
   const setName = useBoundStore((state) => state.setName);
-  const name = useBoundStore((state) => state.name);
+  const name = useBoundStore((state) => state.name) || names.random();
+  //const randomName = names.random();
   const dialog = document.querySelector("dialog");
   const close = () => {
     onCancel();
@@ -19,7 +21,11 @@ const Finish = ({ onPrev, onCancel }) => {
       </p>
       <label htmlFor="heroName">Hero's Name</label>
       <br />
-      <input id="heroName" onChange={(e) => setName(e.target.value)} />
+      <input
+        id="heroName"
+        onChange={(e) => setName(e.target.value)}
+        defaultValue={name}
+      />
       <br />
       <br />
       <button onClick={onPrev} className={styles.btnPrev}>

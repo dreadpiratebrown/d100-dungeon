@@ -55,7 +55,7 @@ const Armor = ({ onPrev, onNext }) => {
 
   const equipArmor = () => {
     armors.map((armor) => {
-      state.equipArmor(armor, armor.location.toLowerCase());
+      state.equipArmor(armor, armor.location.toLowerCase().replace(" ", ""));
       return true;
     });
     setEquipped(true);

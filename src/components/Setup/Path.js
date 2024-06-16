@@ -134,7 +134,6 @@ const Path = ({ onPrev, onNext }) => {
           value="Warrior"
           onChange={(e) => setWarrior()}
           checked={path === "Warrior"}
-          checked={path === "Warrior"}
         />{" "}
         Warrior
       </label>
@@ -146,7 +145,6 @@ const Path = ({ onPrev, onNext }) => {
           value="Rogue"
           onChange={(e) => setRogue()}
           checked={path === "Rogue"}
-          checked={path === "Rogue"}
         />{" "}
         Rogue
       </label>
@@ -157,7 +155,6 @@ const Path = ({ onPrev, onNext }) => {
           name="path"
           value="Sorceror"
           onChange={(e) => setSorceror()}
-          checked={path === "Sorceror"}
           checked={path === "Sorceror"}
         />{" "}
         Sorceror

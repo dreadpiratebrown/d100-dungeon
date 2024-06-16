@@ -13,6 +13,12 @@ const Backpack = () => {
   const setCurrentQuest = useBoundStore((state) => state.setCurrentQuest);
   const currentQuest = useBoundStore((state) => state.currentQuest);
   const completedQuests = useBoundStore((state) => state.completedQuests);
+  const itemsWithDamageTrack = useBoundStore(
+    (state) => state.itemsWithDamageTrack
+  );
+  const itemsWithoutDamageTrack = useBoundStore(
+    (state) => state.itemsWithoutDamageTrack
+  );
   const startNewQuest = () => {
     let roll = {};
     for (let i = 1; i < 11; i++) {
@@ -72,8 +78,8 @@ const Backpack = () => {
           </tr>
         </thead>
         <tbody>
-          {[...Array(10)].map((row, i) => (
-            <BackpackRow damage={true} key={i} />
+          {itemsWithDamageTrack.map((item, i) => (
+            <BackpackRow damage={true} key={i} item={item} />
           ))}
         </tbody>
       </table>

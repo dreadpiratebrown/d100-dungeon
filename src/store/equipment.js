@@ -48,7 +48,7 @@ export const useEquipmentStore = (set) => ({
     fix: 0,
     itemDamage: 0,
   },
-  offHand: {
+  offh: {
     location: "Off H",
     name: "",
     as: "",
@@ -101,9 +101,10 @@ export const useEquipmentStore = (set) => ({
         gold: item.gold,
         fix: item.fix,
         itemDamage: itemDamage,
+        uuid: window.crypto.randomUUID(),
       },
     })),
-  unequipWepon: () =>
+  unequipWeapon: () =>
     set((state) => ({
       weapon: {
         hands: 1,
@@ -115,6 +116,13 @@ export const useEquipmentStore = (set) => ({
         itemDamage: 0,
       },
     })),
+  damageRepairWeapon: (value) =>
+    set((state) => ({
+      weapon: {
+        ...state.weapon,
+        itemDamage: state.weapon.itemDamage + value,
+      },
+    })),
   equipArmor: (item, location, itemDamage = 0) =>
     set((state) => ({
       [location]: {
@@ -124,6 +132,7 @@ export const useEquipmentStore = (set) => ({
         gold: item.gold,
         fix: item.fix,
         itemDamage: itemDamage,
+        uuid: window.crypto.randomUUID(),
       },
     })),
   unequipArmor: (location) =>
@@ -135,6 +144,13 @@ export const useEquipmentStore = (set) => ({
         gold: 0,
         fix: 0,
         itemDamage: 0,
+      },
+    })),
+  damageRepairArmor: (location, value) =>
+    set((state) => ({
+      [location]: {
+        ...state[location],
+        itemDamage: state[location].itemDamage + value,
       },
     })),
   setOil: (value) => set((state) => ({ oil: state.oil + value })),
@@ -194,7 +210,7 @@ export const useEquipmentStore = (set) => ({
         fix: 0,
         itemDamage: 0,
       },
-      offHand: {
+      offh: {
         location: "Off H",
         name: "",
         as: "",
