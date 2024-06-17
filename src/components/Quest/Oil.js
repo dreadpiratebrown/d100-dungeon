@@ -37,10 +37,9 @@ export const Oil = ({ onCancel }) => {
   return (
     <>
       <p>
-        You've spent {timeTracker + 1}{" "}
-        {timeTracker + 1 === 1 ? "hour" : "hours"} in the dungeon. Spend one
-        oil? Choosing "NO" will plunge you into darkness and lower your
-        characterstics by 20 each.
+        You've spent {timeTracker} {timeTracker === 1 ? "hour" : "hours"} in the
+        dungeon. Spend one oil? Choosing "NO" will plunge you into darkness and
+        lower your characterstics by 20 each.
       </p>
       <div className={styles.buttons}>
         <button className={styles.btnYes} disabled={oil === 0} onClick={yes}>
