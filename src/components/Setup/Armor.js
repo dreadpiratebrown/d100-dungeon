@@ -27,12 +27,18 @@ const Armor = ({ onPrev, onNext }) => {
 
   const changeArmor = (itemToKeep, itemToDelete, mode) => {
     // copy rolls
-    const alteredList = armors;
+    const alteredList = [...armors];
     // reset dupe flags on itemToKeep
     alteredList[itemToKeep].dupe = false;
     alteredList[itemToKeep].dupedItem = null;
     // delete itemToDelete
-    alteredList.splice(itemToDelete, 1);
+    alteredList.splice(
+      (state.weapon.hands === 2) &
+        (alteredList[itemToDelete].location !== "Off H")
+        ? itemToDelete - 1
+        : itemToDelete,
+      1
+    );
     // get remaining locations
     const locations = alteredList.map((item) => item.location);
     // roll up a new armor and check against locations for dupes
@@ -113,8 +119,27 @@ const Armor = ({ onPrev, onNext }) => {
                       or
                     </>
                   )}
+                  {armor.location === "Off H" && state.weapon.hands === 1 && (
+                    <>
+                      <button
+                        onClick={() => changeArmor(i, armor.dupedItem, "keep")}
+                        className={styles.btnKeep}
+                      >
+                        Keep this <FontAwesomeIcon icon={faLock} />
+                      </button>{" "}
+                      or
+                    </>
+                  )}
                   <button
-                    onClick={() => changeArmor(armor.dupedItem, i, "reroll")}
+                    onClick={() =>
+                      changeArmor(
+                        armor.location === "Off H" && state.weapon.hands === 2
+                          ? i
+                          : armor.dupedItem,
+                        i,
+                        "reroll"
+                      )
+                    }
                     className={styles.btnReroll}
                   >
                     Reroll this <FontAwesomeIcon icon={faRotate} />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
 import names from "random-names-generator";
@@ -7,12 +8,15 @@ import styles from "./styles.module.css";
 const Finish = ({ onPrev, onCancel }) => {
   const setName = useBoundStore((state) => state.setName);
   const name = useBoundStore((state) => state.name) || names.random();
-  //const randomName = names.random();
   const dialog = document.querySelector("dialog");
   const close = () => {
     onCancel();
     dialog.close();
   };
+
+  useEffect(() => {
+    setName(name);
+  }, []);
   return (
     <>
       <p>

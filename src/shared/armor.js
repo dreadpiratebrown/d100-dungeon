@@ -10,7 +10,7 @@ export const armor = [
   {
     d100: [5, 6, 7, 8],
     location: "Legs",
-    name: "Leather Tasset",
+    name: "Leather Tassets",
     as: 0,
     gold: 68,
     fix: 14,
@@ -154,7 +154,7 @@ export const armor = [
   {
     d100: [63, 64],
     location: "Legs",
-    name: "Mail Cuisse",
+    name: "Mail Cuisses",
     as: 2,
     gold: 146,
     fix: 30,
