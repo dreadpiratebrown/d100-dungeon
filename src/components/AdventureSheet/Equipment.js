@@ -5,6 +5,72 @@ import styles from "./styles.module.css";
 
 const Equipment = () => {
   const state = useBoundStore();
+  let str =
+    state.head?.str +
+    state.back?.str +
+    state.torso?.str +
+    state.arms?.str +
+    state.hands?.str +
+    state.weapon?.str +
+    state.offh?.str +
+    state.waist?.str +
+    state.legs?.str +
+    state.feet?.str;
+  let dex =
+    state.head?.dex +
+    state.back?.dex +
+    state.torso?.dex +
+    state.arms?.dex +
+    state.hands?.dex +
+    state.weapon?.dex +
+    state.offh?.dex +
+    state.waist?.dex +
+    state.legs?.dex +
+    state.feet?.dex;
+  let int =
+    state.head?.int +
+    state.back?.int +
+    state.torso?.int +
+    state.arms?.int +
+    state.hands?.int +
+    state.weapon?.int +
+    state.offh?.int +
+    state.waist?.int +
+    state.legs?.int +
+    state.feet?.int;
+  let hp =
+    state.head?.hp +
+    state.back?.hp +
+    state.torso?.hp +
+    state.arms?.hp +
+    state.hands?.hp +
+    state.weapon?.hp +
+    state.offh?.hp +
+    state.waist?.hp +
+    state.legs?.hp +
+    state.feet?.hp;
+  let dmg =
+    state.head?.dmg +
+    state.back?.dmg +
+    state.torso?.dmg +
+    state.arms?.dmg +
+    state.hands?.dmg +
+    state.weapon?.dmg +
+    state.offh?.dmg +
+    state.waist?.dmg +
+    state.legs?.dmg +
+    state.feet?.dmg;
+  let def =
+    state.head?.def +
+    state.back?.def +
+    state.torso?.def +
+    state.arms?.def +
+    state.hands?.def +
+    state.weapon?.def +
+    state.offh?.def +
+    state.waist?.def +
+    state.legs?.def +
+    state.feet?.def;
   return (
     <div className={styles.equipment} id="equipment">
       <table>
@@ -104,12 +170,12 @@ const Equipment = () => {
           <tr>
             <td colSpan="3"></td>
             <td>TOTALS</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{str ? str : 0}</td>
+            <td>{dex ? dex : 0}</td>
+            <td>{int ? int : 0}</td>
+            <td>{hp ? hp : 0}</td>
+            <td>{dmg ? dmg : 0}</td>
+            <td>{def ? def : 0}</td>
             <td colSpan="4"></td>
           </tr>
         </tfoot>
