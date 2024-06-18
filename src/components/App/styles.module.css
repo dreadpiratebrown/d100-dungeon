@@ -1,12 +1,40 @@
 .main {
   margin: 0 auto;
-  max-width: 1198px;
+  max-width: 1200px;
+}
+
+.mainMenu {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabs {
+  border-top: 1px solid #000;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.active {
+  border: 1px solid #000;
+  border-top-color: #fff;
+  margin-top: -1px;
+}
+
+.tabs button {
+  background: var(--silver);
+}
+
+.tabs .active button {
+  background: var(--gray);
 }
 
 .newGame {
   background: var(--blue);
   color: #fff;
-  float: right;
+  /* float: right; */
   font-size: 1rem;
   padding: 0.5rem 1rem;
 }

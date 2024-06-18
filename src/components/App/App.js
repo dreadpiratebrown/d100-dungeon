@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon } from "@fortawesome/free-solid-svg-icons";
 import { AdventureSheet } from "../AdventureSheet";
+import { Map } from "../Map";
 import { Modal } from "../../components";
 import { useBoundStore } from "../../store/boundStore";
 import Characteristics from "../Setup/Characteristics";
@@ -17,6 +18,7 @@ import styles from "./styles.module.css";
 export const App = () => {
   const [modal, setModal] = useState(false);
   const [setupStep, setSetupStep] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
 
   const store = useBoundStore();
 
@@ -77,22 +79,37 @@ export const App = () => {
 
   return (
     <div className={styles.main}>
-      <button
-        onClick={() => {
-          store.resetStats();
-          store.resetHero();
-          store.resetSkills();
-          store.resetEquipment();
-          store.resetQuests();
-          store.resetBackpack();
-          setModal(true);
-        }}
-        className={styles.newGame}
-      >
-        New Game <FontAwesomeIcon icon={faDungeon} />
-      </button>
-      <h1>D100 Dungeon</h1>
-      <AdventureSheet />
+      <div className={styles.mainMenu}>
+        <h1>D100 Dungeon</h1>
+        <ul className={styles.tabs}>
+          <li className={activeTab === 0 ? styles.active : null}>
+            <button onClick={() => setActiveTab(0)}>Adventure Sheet</button>
+          </li>
+          <li className={activeTab === 1 ? styles.active : null}>
+            <button onClick={() => setActiveTab(1)}>Dungeon Map</button>
+          </li>
+          <li className={activeTab === 2 ? styles.active : null}>
+            <button onClick={() => setActiveTab(2)}>Combat Tracker</button>
+          </li>
+        </ul>
+        <button
+          onClick={() => {
+            store.resetStats();
+            store.resetHero();
+            store.resetSkills();
+            store.resetEquipment();
+            store.resetQuests();
+            store.resetBackpack();
+            setModal(true);
+          }}
+          className={styles.newGame}
+        >
+          New Game <FontAwesomeIcon icon={faDungeon} />
+        </button>
+      </div>
+      {activeTab === 0 && <AdventureSheet />}
+      {activeTab === 1 && <Map />}
+      {activeTab === 2 && <h1>Combat Tracker</h1>}
       <Modal openModal={modal}>{setup(setupStep)}</Modal>
     </div>
   );

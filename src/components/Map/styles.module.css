@@ -1,0 +1,16 @@
+.mapWrapper {
+  text-align: center;
+}
+
+.grid {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: grid;
+  grid-template-columns: repeat(20, 60px);
+  grid-template-rows: repeat(20, 60px);
+}
+
+.gridItem {
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+}
