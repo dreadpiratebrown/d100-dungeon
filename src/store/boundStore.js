@@ -6,6 +6,7 @@ import { useQuestsStore } from "./quests";
 import { useSkillsStore } from "./skills";
 import { useStatsStore } from "./stats";
 import { useBackpackStore } from "./backpack";
+import { useMapStore } from "./map";
 
 export const useBoundStore = create(
   persist(
@@ -16,6 +17,7 @@ export const useBoundStore = create(
       ...useSkillsStore(...a),
       ...useStatsStore(...a),
       ...useBackpackStore(...a),
+      ...useMapStore(...a),
     }),
     { name: "d100-store" }
   )

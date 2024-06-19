@@ -14,3 +14,18 @@
   border-top: 1px solid #000;
   border-left: 1px solid #000;
 }
+
+.tile {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+
+.entrance {
+  font-size: 2rem;
+  line-height: 60px;
+}
+
+.possibleExit {
+  background-color: var(--silver);
+}

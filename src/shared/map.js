@@ -12,7 +12,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/001.png",
+    image: "001.png",
   },
   {
     d100: 2,
@@ -27,7 +27,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/002.png",
+    image: "002.png",
   },
   {
     d100: 3,
@@ -38,7 +38,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/003.png",
+    image: "003.png",
   },
   {
     d100: 4,
@@ -57,7 +57,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/004.png",
+    image: "004.png",
   },
   {
     d100: 5,
@@ -72,7 +72,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/005.png",
+    image: "005.png",
   },
   {
     d100: 6,
@@ -91,7 +91,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/006.png",
+    image: "006.png",
   },
   {
     d100: 7,
@@ -110,7 +110,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/007.png",
+    image: "007.png",
   },
   {
     d100: 8,
@@ -129,7 +129,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/008.png",
+    image: "008.png",
   },
   {
     d100: 9,
@@ -144,7 +144,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/009.png",
+    image: "009.png",
   },
   {
     d100: 10,
@@ -159,7 +159,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/010.png",
+    image: "010.png",
   },
   {
     d100: 11,
@@ -178,7 +178,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/011.png",
+    image: "011.png",
   },
   ,
   {
@@ -194,7 +194,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/012.png",
+    image: "012.png",
   },
   {
     d100: 13,
@@ -213,7 +213,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/013.png",
+    image: "013.png",
   },
   {
     d100: 14,
@@ -228,7 +228,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/014.png",
+    image: "014.png",
   },
   {
     d100: 15,
@@ -247,7 +247,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/015.png",
+    image: "015.png",
   },
   {
     d100: 16,
@@ -262,7 +262,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/016.png",
+    image: "016.png",
   },
   {
     d100: 17,
@@ -281,7 +281,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/017.png",
+    image: "017.png",
   },
   {
     d100: 18,
@@ -300,7 +300,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/018.png",
+    image: "018.png",
   },
   {
     d100: 19,
@@ -315,7 +315,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/019.png",
+    image: "019.png",
   },
   {
     d100: 20,
@@ -334,7 +334,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/020.png",
+    image: "020.png",
   },
   {
     d100: 21,
@@ -353,7 +353,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/021.png",
+    image: "021.png",
   },
   {
     d100: 22,
@@ -368,7 +368,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/022.png",
+    image: "022.png",
   },
   {
     d100: 23,
@@ -383,7 +383,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/023.png",
+    image: "023.png",
   },
   {
     d100: 24,
@@ -402,7 +402,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/024.png",
+    image: "024.png",
   },
   {
     d100: 25,
@@ -413,7 +413,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/025.png",
+    image: "025.png",
   },
   {
     d100: 26,
@@ -432,7 +432,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/026.png",
+    image: "026.png",
   },
   {
     d100: 27,
@@ -447,7 +447,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/027.png",
+    image: "027.png",
   },
   {
     d100: 28,
@@ -462,7 +462,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/028.png",
+    image: "028.png",
   },
   {
     d100: 29,
@@ -481,7 +481,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/029.png",
+    image: "029.png",
   },
   {
     d100: 30,
@@ -496,7 +496,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/030.png",
+    image: "030.png",
   },
   {
     d100: 31,
@@ -511,7 +511,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/031.png",
+    image: "031.png",
   },
   {
     d100: 32,
@@ -526,7 +526,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/032.png",
+    image: "032.png",
   },
   {
     d100: 33,
@@ -545,7 +545,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/033.png",
+    image: "033.png",
   },
   {
     d100: 34,
@@ -560,7 +560,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/034.png",
+    image: "034.png",
   },
   {
     d100: 35,
@@ -575,7 +575,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/035.png",
+    image: "035.png",
   },
   {
     d100: 36,
@@ -594,7 +594,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/036.png",
+    image: "036.png",
   },
   {
     d100: 37,
@@ -617,7 +617,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/037.png",
+    image: "037.png",
   },
   {
     d100: 38,
@@ -636,7 +636,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/038.png",
+    image: "038.png",
   },
   {
     d100: 39,
@@ -651,7 +651,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/039.png",
+    image: "039.png",
   },
   {
     d100: 40,
@@ -670,7 +670,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/040.png",
+    image: "040.png",
   },
   ,
   {
@@ -686,7 +686,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/041.png",
+    image: "041.png",
   },
   {
     d100: 42,
@@ -705,7 +705,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/042.png",
+    image: "042.png",
   },
   {
     d100: 43,
@@ -720,7 +720,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/043.png",
+    image: "043.png",
   },
   {
     d100: 44,
@@ -739,7 +739,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/044.png",
+    image: "044.png",
   },
   {
     d100: 45,
@@ -754,7 +754,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/045.png",
+    image: "045.png",
   },
   {
     d100: 46,
@@ -777,7 +777,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/046.png",
+    image: "046.png",
   },
   {
     d100: 47,
@@ -792,7 +792,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/047.png",
+    image: "047.png",
   },
   {
     d100: 48,
@@ -807,7 +807,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/048.png",
+    image: "048.png",
   },
   {
     d100: 49,
@@ -830,7 +830,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/049.png",
+    image: "049.png",
   },
   {
     d100: 50,
@@ -845,7 +845,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/050.png",
+    image: "050.png",
   },
   {
     d100: 51,
@@ -860,7 +860,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/051.png",
+    image: "051.png",
   },
   {
     d100: 52,
@@ -883,7 +883,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/052.png",
+    image: "052.png",
   },
   {
     d100: 53,
@@ -894,7 +894,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/053.png",
+    image: "053.png",
   },
   {
     d100: 54,
@@ -913,7 +913,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/054.png",
+    image: "054.png",
   },
   {
     d100: 55,
@@ -924,7 +924,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/055.png",
+    image: "055.png",
   },
   {
     d100: 56,
@@ -943,7 +943,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/056.png",
+    image: "056.png",
   },
   {
     d100: 57,
@@ -958,7 +958,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/057.png",
+    image: "057.png",
   },
   {
     d100: 58,
@@ -981,7 +981,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/058.png",
+    image: "058.png",
   },
   {
     d100: 59,
@@ -996,7 +996,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/059.png",
+    image: "059.png",
   },
   {
     d100: 60,
@@ -1015,7 +1015,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/060.png",
+    image: "060.png",
   },
   {
     d100: 61,
@@ -1034,7 +1034,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/061.png",
+    image: "061.png",
   },
   {
     d100: 62,
@@ -1049,7 +1049,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/062.png",
+    image: "062.png",
   },
   {
     d100: 63,
@@ -1072,7 +1072,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/063.png",
+    image: "063.png",
   },
   {
     d100: 64,
@@ -1083,7 +1083,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/064.png",
+    image: "064.png",
   },
   {
     d100: 65,
@@ -1098,7 +1098,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/065.png",
+    image: "065.png",
   },
   {
     d100: 66,
@@ -1113,7 +1113,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/066.png",
+    image: "066.png",
   },
   {
     d100: 67,
@@ -1128,7 +1128,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/067.png",
+    image: "067.png",
   },
   {
     d100: 68,
@@ -1151,7 +1151,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/068.png",
+    image: "068.png",
   },
   {
     d100: 69,
@@ -1166,7 +1166,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/069.png",
+    image: "069.png",
   },
   {
     d100: 70,
@@ -1185,7 +1185,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/070.png",
+    image: "070.png",
   },
   {
     d100: 71,
@@ -1200,7 +1200,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/071.png",
+    image: "071.png",
   },
   {
     d100: 72,
@@ -1223,7 +1223,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/072.png",
+    image: "072.png",
   },
   {
     d100: 73,
@@ -1238,7 +1238,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/073.png",
+    image: "073.png",
   },
   {
     d100: 74,
@@ -1253,7 +1253,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/074.png",
+    image: "074.png",
   },
   {
     d100: 75,
@@ -1268,7 +1268,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/075.png",
+    image: "075.png",
   },
   {
     d100: 76,
@@ -1287,7 +1287,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/076.png",
+    image: "076.png",
   },
   {
     d100: 77,
@@ -1302,7 +1302,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/077.png",
+    image: "077.png",
   },
   {
     d100: 78,
@@ -1317,7 +1317,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/078.png",
+    image: "078.png",
   },
   {
     d100: 79,
@@ -1336,7 +1336,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/079.png",
+    image: "079.png",
   },
   {
     d100: 80,
@@ -1351,7 +1351,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/080.png",
+    image: "080.png",
   },
   {
     d100: 81,
@@ -1374,7 +1374,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/081.png",
+    image: "081.png",
   },
   {
     d100: 82,
@@ -1389,7 +1389,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/082.png",
+    image: "082.png",
   },
   {
     d100: 83,
@@ -1408,7 +1408,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/083.png",
+    image: "083.png",
   },
   {
     d100: 84,
@@ -1423,7 +1423,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/084.png",
+    image: "084.png",
   },
   {
     d100: 85,
@@ -1438,7 +1438,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/085.png",
+    image: "085.png",
   },
   {
     d100: 86,
@@ -1453,7 +1453,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/086.png",
+    image: "086.png",
   },
   {
     d100: 87,
@@ -1468,7 +1468,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/087.png",
+    image: "087.png",
   },
   {
     d100: 88,
@@ -1487,7 +1487,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/088.png",
+    image: "088.png",
   },
   {
     d100: 89,
@@ -1502,7 +1502,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/089.png",
+    image: "089.png",
   },
   {
     d100: 90,
@@ -1521,7 +1521,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/090.png",
+    image: "090.png",
   },
   {
     d100: 91,
@@ -1540,7 +1540,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/091.png",
+    image: "091.png",
   },
   {
     d100: 92,
@@ -1559,7 +1559,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/092.png",
+    image: "092.png",
   },
   {
     d100: 93,
@@ -1570,7 +1570,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/093.png",
+    image: "093.png",
   },
   {
     d100: 94,
@@ -1589,7 +1589,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/094.png",
+    image: "094.png",
   },
   {
     d100: 95,
@@ -1604,7 +1604,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/095.png",
+    image: "095.png",
   },
   {
     d100: 96,
@@ -1623,7 +1623,7 @@ export const tiles = [
         type: "door",
       },
     ],
-    image: "assets/096.png",
+    image: "096.png",
   },
   {
     d100: 97,
@@ -1638,7 +1638,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/097.png",
+    image: "097.png",
   },
   {
     d100: 98,
@@ -1649,7 +1649,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/098.png",
+    image: "098.png",
   },
   {
     d100: 99,
@@ -1664,7 +1664,7 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/099.png",
+    image: "099.png",
   },
   {
     d100: 100,
@@ -1675,6 +1675,6 @@ export const tiles = [
         type: "open",
       },
     ],
-    image: "assets/100.png",
+    image: "100.png",
   },
 ];
