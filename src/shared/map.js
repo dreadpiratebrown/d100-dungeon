@@ -68,7 +68,7 @@ export const tiles = [
         type: "open",
       },
       {
-        wall: 3,
+        wall: 4,
         type: "open",
       },
     ],

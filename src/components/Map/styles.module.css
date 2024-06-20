@@ -29,3 +29,7 @@
 .possibleExit {
   background-color: var(--silver);
 }
+
+.secretPassage {
+  background-color: var(--yellow);
+}

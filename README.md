@@ -4,7 +4,6 @@
 
 ### Mapping
 
-- Secret passageways
 - Room events - monsters, geographic, search, quest
 - Doors
 - Meta info

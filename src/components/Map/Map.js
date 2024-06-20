@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon } from "@fortawesome/free-solid-svg-icons";
-import { Tile } from "./";
+import { Modal, Tile } from "../../components";
 import { tiles } from "../../shared/map";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
 export const Map = () => {
+  const [modal, setModal] = useState(false);
   const mapTiles = useBoundStore((state) => state.mapTiles);
   const locations = useBoundStore((state) => state.locations);
   const addMapTile = useBoundStore((state) => state.addMapTile);
@@ -15,14 +16,25 @@ export const Map = () => {
   const resetMap = useBoundStore((state) => state.resetMap);
   const startNewDungeon = () => {
     resetMap();
+    // clear out all old possible exits
     const oldExits = document.querySelectorAll(`.${styles["possibleExit"]}`);
-    oldExits.forEach((exit) => exit.classList.remove(styles["possibleExit"]));
+    oldExits.forEach((exit) => {
+      exit.classList.remove(styles["possibleExit"]);
+      delete exit.dataset.exit;
+      delete exit.dataset.rotation;
+    });
+    document
+      .querySelectorAll(`.${styles["secretPassage"]}`)
+      .forEach((passage) => passage.classList.remove(styles["secretPassage"]));
+    // roll a new tile and make a deep copy
     const roll = new DiceRoll("d100");
     const newTile = tiles.filter((tile) => tile.d100 === roll.total);
     const copy = {};
     Object.assign(copy, newTile[0]);
+    // assign some extra information for location & rotation
     copy.gridLocation = "grid190";
     copy.rotation = "0";
+    // highlight possible exits and add to the store
     highlightExits(copy.exits, copy.gridLocation, copy.rotation);
     addMapTile(copy);
     addLocation("grid190");
@@ -62,10 +74,38 @@ export const Map = () => {
           break;
       }
     });
+    const remainingExits = document.querySelectorAll(
+      `.${styles["possibleExit"]}:empty`
+    );
+    if (remainingExits.length === 0 && mapTiles.length > 0) {
+      setModal(true);
+      mapTiles.map((tile) => {
+        const tileNum = parseInt(tile.gridLocation.replace("grid", ""));
+        const passageN = document.getElementById(`grid${tileNum - 20}`);
+        passageN.setAttribute("data-passage", "north");
+        passageN.setAttribute("data-rotation", "0");
+        passageN.classList.add(styles["secretPassage"]);
+        const passageE = document.getElementById(`grid${tileNum + 1}`);
+        passageE.setAttribute("data-passage", "east");
+        passageE.setAttribute("data-rotation", "1");
+        passageE.classList.add(styles["secretPassage"]);
+        const passageS = document.getElementById(`grid${tileNum + 20}`);
+        passageS.setAttribute("data-passage", "south");
+        passageS.setAttribute("data-rotation", "2");
+        passageS.classList.add(styles["secretPassage"]);
+        const passageW = document.getElementById(`grid${tileNum - 1}`);
+        passageW.setAttribute("data-passage", "west");
+        passageW.setAttribute("data-rotation", "4");
+        passageW.classList.add(styles["secretPassage"]);
+      });
+    }
   };
 
   const addNewTile = (event) => {
-    if (event.target.dataset.hasOwnProperty("exit")) {
+    if (
+      event.target.dataset.hasOwnProperty("exit") ||
+      event.target.dataset.hasOwnProperty("passage")
+    ) {
       const roll = new DiceRoll("d100");
       const newTile = tiles.filter((tile) => tile.d100 === roll.total);
       const copy = {};
@@ -79,11 +119,15 @@ export const Map = () => {
       );
       addMapTile(copy);
       addLocation(event.target.id);
+      document
+        .querySelectorAll(`.${styles["secretPassage"]}`)
+        .forEach((passage) =>
+          passage.classList.remove(styles["secretPassage"])
+        );
     }
   };
 
   useEffect(() => {
-    console.log(mapTiles);
     mapTiles.map((tile) => {
       highlightExits(tile.exits, tile.gridLocation, tile.rotation);
     });
@@ -117,6 +161,12 @@ export const Map = () => {
           </div>
         ))}
       </div>
+      <Modal openModal={modal} closeModal={() => setModal(false)}>
+        <p>
+          There are no more possible exits. Click any yellow tile to create a
+          secret passage.
+        </p>
+      </Modal>
     </div>
   );
 };
