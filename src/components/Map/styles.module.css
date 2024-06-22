@@ -33,3 +33,10 @@
 .secretPassage {
   background-color: var(--yellow);
 }
+
+.hero {
+  font-size: 2rem;
+  line-height: 60px;
+  position: absolute;
+  width: 60px;
+}

@@ -180,7 +180,6 @@ export const tiles = [
     ],
     image: "011.png",
   },
-  ,
   {
     d100: 12,
     color: "red",
@@ -672,7 +671,6 @@ export const tiles = [
     ],
     image: "040.png",
   },
-  ,
   {
     d100: 41,
     color: "yellow",

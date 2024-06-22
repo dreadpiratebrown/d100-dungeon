@@ -14,10 +14,11 @@ export const useMapStore = (set) => ({
     set((state) => ({
       exits: [...state.exits, exit],
     })),
-  resetMap: () =>
+  resetMap: () => {
     set({
       mapTiles: [],
       locations: [],
       exits: [],
-    }),
+    });
+  },
 });

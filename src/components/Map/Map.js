@@ -1,167 +1,214 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDungeon } from "@fortawesome/free-solid-svg-icons";
+import { faDungeon, faPerson } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Tile } from "../../components";
 import { tiles } from "../../shared/map";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
 export const Map = () => {
-  const [modal, setModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [personPosition, setPersonPosition] = useState({ left: 0, top: 0 });
+  const personRef = useRef(null);
   const mapTiles = useBoundStore((state) => state.mapTiles);
-  const locations = useBoundStore((state) => state.locations);
   const addMapTile = useBoundStore((state) => state.addMapTile);
   const addLocation = useBoundStore((state) => state.addLocation);
   const resetMap = useBoundStore((state) => state.resetMap);
+
+  useEffect(() => {
+    // Initialize map on component mount
+    resetMap();
+  }, [resetMap]);
+
   const startNewDungeon = () => {
     resetMap();
     // clear out all old possible exits
-    const oldExits = document.querySelectorAll(`.${styles["possibleExit"]}`);
+    const oldExits = document.querySelectorAll(`.${styles["grid"]} > div`);
     oldExits.forEach((exit) => {
       exit.classList.remove(styles["possibleExit"]);
+      exit.classList.remove(styles["secretPassage"]);
       delete exit.dataset.exit;
+      delete exit.dataset.passage;
       delete exit.dataset.rotation;
+      delete exit.dataset.tiled;
     });
-    document
-      .querySelectorAll(`.${styles["secretPassage"]}`)
-      .forEach((passage) => passage.classList.remove(styles["secretPassage"]));
-    // roll a new tile and make a deep copy
     const roll = new DiceRoll("d100");
-    const newTile = tiles.filter((tile) => tile.d100 === roll.total);
-    const copy = {};
-    Object.assign(copy, newTile[0]);
-    // assign some extra information for location & rotation
-    copy.gridLocation = "grid190";
-    copy.rotation = "0";
-    // highlight possible exits and add to the store
-    highlightExits(copy.exits, copy.gridLocation, copy.rotation);
-    addMapTile(copy);
-    addLocation("grid190");
+    const newTile = tiles.find((tile) => tile.d100 === roll.total);
+
+    if (newTile) {
+      const copy = { ...newTile };
+      copy.gridLocation = "grid190";
+      copy.rotation = "0";
+      addMapTile(copy);
+      addLocation("grid190");
+
+      // Set entrance and highlight exits
+      const start = document.getElementById("grid190");
+      const entrance = document.getElementById("grid210");
+
+      if (start) {
+        start.dataset.tiled = true;
+        setPersonPosition({ left: start.left, top: start.top + 16 });
+      }
+
+      if (entrance) {
+        entrance.classList.add("entrance");
+      }
+
+      highlightExits(copy.exits, copy.gridLocation, copy.rotation);
+      //highlightPassages();
+    }
   };
 
   const highlightExits = (exits, tile, rotation) => {
     const tileNum = parseInt(tile.replace("grid", ""));
-    exits.map((exit) => {
+    exits.forEach((exit) => {
       let adjustedExit = (exit.wall + (rotation % 4)) % 4;
       if (adjustedExit === 0) adjustedExit = 4;
       switch (adjustedExit) {
         case 1:
-          const tileN = document.getElementById(`grid${tileNum - 20}`);
-          tileN.setAttribute("data-exit", "north");
-          tileN.setAttribute("data-rotation", "0");
-          tileN.classList.add(styles["possibleExit"]);
+          setExitAttribute(tileNum - 20, "north", "0");
           break;
         case 2:
-          const tileE = document.getElementById(`grid${tileNum + 1}`);
-          tileE.setAttribute("data-exit", "east");
-          tileE.setAttribute("data-rotation", "1");
-          tileE.classList.add(styles["possibleExit"]);
+          setExitAttribute(tileNum + 1, "east", "1");
           break;
         case 3:
-          const tileS = document.getElementById(`grid${tileNum + 20}`);
-          tileS.setAttribute("data-exit", "south");
-          tileS.setAttribute("data-rotation", "2");
-          tileS.classList.add(styles["possibleExit"]);
+          setExitAttribute(tileNum + 20, "south", "2");
           break;
         case 4:
-          const tileW = document.getElementById(`grid${tileNum - 1}`);
-          tileW.setAttribute("data-exit", "west");
-          tileW.setAttribute("data-rotation", "3");
-          tileW.classList.add(styles["possibleExit"]);
+          setExitAttribute(tileNum - 1, "west", "3");
           break;
         default:
           break;
       }
     });
+  };
+
+  const setExitAttribute = (tileNum, exitDirection, rotation) => {
+    const tileElement = document.getElementById(`grid${tileNum}`);
+    if (
+      tileElement &&
+      !tileElement.dataset.tiled &&
+      !tileElement.classList.contains("entrance")
+    ) {
+      tileElement.setAttribute("data-exit", exitDirection);
+      tileElement.setAttribute("data-rotation", rotation);
+      tileElement.classList.add(styles["possibleExit"]);
+    }
+  };
+
+  const highlightPassages = () => {
     const remainingExits = document.querySelectorAll(
-      `.${styles["possibleExit"]}:empty`
+      `.${styles["possibleExit"]}`
     );
+    console.log("remaining exits", remainingExits);
+    console.log("map tiles", mapTiles);
     if (remainingExits.length === 0 && mapTiles.length > 0) {
-      setModal(true);
-      mapTiles.map((tile) => {
-        const tileNum = parseInt(tile.gridLocation.replace("grid", ""));
-        const passageN = document.getElementById(`grid${tileNum - 20}`);
-        passageN.setAttribute("data-passage", "north");
-        passageN.setAttribute("data-rotation", "0");
-        passageN.classList.add(styles["secretPassage"]);
-        const passageE = document.getElementById(`grid${tileNum + 1}`);
-        passageE.setAttribute("data-passage", "east");
-        passageE.setAttribute("data-rotation", "1");
-        passageE.classList.add(styles["secretPassage"]);
-        const passageS = document.getElementById(`grid${tileNum + 20}`);
-        passageS.setAttribute("data-passage", "south");
-        passageS.setAttribute("data-rotation", "2");
-        passageS.classList.add(styles["secretPassage"]);
-        const passageW = document.getElementById(`grid${tileNum - 1}`);
-        passageW.setAttribute("data-passage", "west");
-        passageW.setAttribute("data-rotation", "4");
-        passageW.classList.add(styles["secretPassage"]);
+      setModalOpen(true);
+      mapTiles.forEach((tile) => {
+        highlightPassageTile(tile.gridLocation);
       });
     }
   };
 
-  const addNewTile = (event) => {
-    if (
-      event.target.dataset.hasOwnProperty("exit") ||
-      event.target.dataset.hasOwnProperty("passage")
-    ) {
-      const roll = new DiceRoll("d100");
-      const newTile = tiles.filter((tile) => tile.d100 === roll.total);
-      const copy = {};
-      Object.assign(copy, newTile[0]);
-      copy.gridLocation = event.target.id;
-      copy.rotation = event.target.dataset.rotation;
-      highlightExits(
-        copy.exits,
-        event.target.id,
-        event.target.dataset.rotation
+  const highlightPassageTile = (gridLocation) => {
+    const tileNum = parseInt(gridLocation.replace("grid", ""));
+    const directions = ["north", "east", "south", "west"];
+    directions.forEach((direction, index) => {
+      const passageElement = document.getElementById(
+        `grid${
+          tileNum +
+          (index === 3 ? -1 : index === 2 ? 20 : index === 1 ? 1 : -20)
+        }`
       );
-      addMapTile(copy);
-      addLocation(event.target.id);
-      document
-        .querySelectorAll(`.${styles["secretPassage"]}`)
-        .forEach((passage) =>
-          passage.classList.remove(styles["secretPassage"])
+      if (passageElement) {
+        passageElement.setAttribute("data-passage", direction);
+        passageElement.setAttribute("data-rotation", index.toString());
+        passageElement.classList.add(styles["secretPassage"]);
+      }
+    });
+  };
+
+  const addNewTile = (event) => {
+    const { exit, passage } = event.target.dataset;
+    if (exit || passage) {
+      const roll = new DiceRoll("d100");
+      const newTile = tiles.find((tile) => tile.d100 === roll.total);
+      if (newTile) {
+        const copy = { ...newTile };
+        copy.gridLocation = event.target.id;
+        copy.rotation = event.target.dataset.rotation;
+        event.target.dataset.tiled = true;
+        highlightExits(
+          copy.exits,
+          event.target.id,
+          event.target.dataset.rotation
         );
+        event.target.classList.remove(styles["possibleExit"]);
+        addMapTile(copy);
+        addLocation(event.target.id);
+        document
+          .querySelectorAll(`.${styles["secretPassage"]}`)
+          .forEach((passage) => {
+            passage.classList.remove(styles["secretPassage"]);
+            delete passage.dataset.passage;
+          });
+      }
     }
   };
 
   useEffect(() => {
-    mapTiles.map((tile) => {
+    // Highlight exits for existing tiles on mount
+    mapTiles.forEach((tile) => {
       highlightExits(tile.exits, tile.gridLocation, tile.rotation);
     });
+    highlightPassages();
+  }, [mapTiles]);
+
+  useEffect(() => {
+    // Set initial position of personRef
+    const start = document.getElementById("grid190");
+    if (start) {
+      setPersonPosition({
+        left: start.offsetLeft,
+        top: start.offsetTop + 16,
+      });
+    }
   }, []);
+
   return (
     <div className={styles.mapWrapper}>
       <h2>Dungeon Map</h2>
       <button onClick={startNewDungeon}>Start New Dungeon</button>
       <div className={styles.grid}>
-        {[...Array(400)].map((gridItem, i) => (
+        {[...Array(400)].map((_, i) => (
           <div
             className={styles.gridItem}
             id={`grid${i}`}
             key={i}
-            onClick={(e) => addNewTile(e)}
+            onClick={addNewTile}
           >
-            {locations.includes(`grid${i}`) ? (
+            {mapTiles.some((tile) => tile.gridLocation === `grid${i}`) && (
               <Tile
-                tile={mapTiles.filter((t) => t.gridLocation === `grid${i}`)}
+                tile={mapTiles.find((tile) => tile.gridLocation === `grid${i}`)}
               />
-            ) : (
-              <></>
             )}
-            {i === 210 ? (
+            {i === 210 && (
               <div className={styles.entrance}>
                 <FontAwesomeIcon icon={faDungeon} />
               </div>
-            ) : (
-              <></>
             )}
           </div>
         ))}
       </div>
-      <Modal openModal={modal} closeModal={() => setModal(false)}>
+      <FontAwesomeIcon
+        ref={personRef}
+        icon={faPerson}
+        className={styles.hero}
+        style={{ left: personPosition.left, top: personPosition.top }}
+      />
+      <Modal openModal={modalOpen} closeModal={() => setModalOpen(false)}>
         <p>
           There are no more possible exits. Click any yellow tile to create a
           secret passage.
