@@ -49,7 +49,10 @@ export const Map = () => {
 
       if (start) {
         start.dataset.tiled = true;
-        setPersonPosition({ left: start.left, top: start.top + 16 });
+        setPersonPosition({
+          left: start.offsetLeft,
+          top: start.offsetTop + 16,
+        });
       }
 
       if (entrance) {
@@ -154,6 +157,10 @@ export const Map = () => {
             passage.classList.remove(styles["secretPassage"]);
             delete passage.dataset.passage;
           });
+        setPersonPosition({
+          left: event.target.offsetLeft,
+          top: event.target.offsetTop + 16,
+        });
       }
     }
   };
