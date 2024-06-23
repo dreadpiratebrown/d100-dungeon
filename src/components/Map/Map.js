@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon, faPerson } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Tile } from "../../components";
 import { tiles } from "../../shared/map";
+import { encounters } from "../../shared/encounters";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
@@ -15,11 +16,12 @@ export const Map = () => {
   const addMapTile = useBoundStore((state) => state.addMapTile);
   const addLocation = useBoundStore((state) => state.addLocation);
   const resetMap = useBoundStore((state) => state.resetMap);
+  const modifier = useBoundStore((state) => state.currentQuest.modifier);
 
-  useEffect(() => {
-    // Initialize map on component mount
-    resetMap();
-  }, [resetMap]);
+  // useEffect(() => {
+  //   // Initialize map on component mount
+  //   resetMap();
+  // }, [resetMap]);
 
   const startNewDungeon = () => {
     resetMap();
@@ -60,7 +62,10 @@ export const Map = () => {
       }
 
       highlightExits(copy.exits, copy.gridLocation, copy.rotation);
-      //highlightPassages();
+
+      if (copy.color === "red") {
+        rollEncounter();
+      }
     }
   };
 
@@ -165,6 +170,20 @@ export const Map = () => {
     }
   };
 
+  const rollEncounter = () => {
+    const roll = new DiceRoll("d100");
+    console.log("roll", roll.total);
+    const modifiedRoll =
+      roll.total + modifier <= 0
+        ? 1
+        : roll.total + modifier > 100
+        ? 100
+        : roll.total + modifier;
+    console.log("modified roll", modifiedRoll);
+    const encounter = encounters.find((e) => e.d100.includes(modifiedRoll));
+    console.log(encounter);
+  };
+
   useEffect(() => {
     // Highlight exits for existing tiles on mount
     mapTiles.forEach((tile) => {
@@ -188,26 +207,33 @@ export const Map = () => {
     <div className={styles.mapWrapper}>
       <h2>Dungeon Map</h2>
       <button onClick={startNewDungeon}>Start New Dungeon</button>
-      <div className={styles.grid}>
-        {[...Array(400)].map((_, i) => (
-          <div
-            className={styles.gridItem}
-            id={`grid${i}`}
-            key={i}
-            onClick={addNewTile}
-          >
-            {mapTiles.some((tile) => tile.gridLocation === `grid${i}`) && (
-              <Tile
-                tile={mapTiles.find((tile) => tile.gridLocation === `grid${i}`)}
-              />
-            )}
-            {i === 210 && (
-              <div className={styles.entrance}>
-                <FontAwesomeIcon icon={faDungeon} />
-              </div>
-            )}
-          </div>
-        ))}
+      <div className={styles.flexWrapper}>
+        <div className={styles.grid}>
+          {[...Array(400)].map((_, i) => (
+            <div
+              className={styles.gridItem}
+              id={`grid${i}`}
+              key={i}
+              onClick={addNewTile}
+            >
+              {mapTiles.some((tile) => tile.gridLocation === `grid${i}`) && (
+                <Tile
+                  tile={mapTiles.find(
+                    (tile) => tile.gridLocation === `grid${i}`
+                  )}
+                />
+              )}
+              {i === 210 && (
+                <div className={styles.entrance}>
+                  <FontAwesomeIcon icon={faDungeon} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className={styles.eventTracker}>
+          <h3>Events</h3>
+        </div>
       </div>
       <FontAwesomeIcon
         ref={personRef}

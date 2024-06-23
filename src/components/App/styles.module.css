@@ -3,10 +3,20 @@
   max-width: 1200px;
 }
 
+.mainWide {
+  margin: 0 2rem;
+  max-width: none;
+}
+
 .mainMenu {
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.mainWide .mainMenu {
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .tabs {

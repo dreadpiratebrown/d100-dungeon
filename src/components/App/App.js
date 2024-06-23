@@ -76,7 +76,7 @@ export const App = () => {
   };
 
   return (
-    <div className={styles.main}>
+    <div className={activeTab === 1 ? styles.mainWide : styles.main}>
       <div className={styles.mainMenu}>
         <h1>D100 Dungeon</h1>
         <ul className={styles.tabs}>
