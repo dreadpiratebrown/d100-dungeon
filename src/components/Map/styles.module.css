@@ -48,11 +48,30 @@
   width: 60px;
 }
 
+.logScroll {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 350px;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+
 .eventTracker {
   flex-grow: 1;
   flex-shrink: 0;
+  max-width: calc(100vw - (4rem + 1200px));
   padding: 0 1rem;
-  position: sticky;
-  text-align: center;
-  top: 0;
+  text-align: left;
+}
+
+.eventTracker h3 {
+  border-bottom: 1px solid var(--gray);
+}
+
+.eventTracker p {
+  margin: 10px 0;
+}
+
+.eventTracker hr {
+  margin: 0;
 }

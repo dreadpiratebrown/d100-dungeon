@@ -39,6 +39,14 @@ export const useQuestsStore = (set) => ({
       },
     }));
   },
+  resetTime: () => {
+    set((state) => ({
+      currentQuest: {
+        ...state.currentQuest,
+        timeTracker: 0,
+      },
+    }));
+  },
   toggleDarkness: () => {
     set((state) => ({
       currentQuest: {

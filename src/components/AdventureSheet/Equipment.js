@@ -231,7 +231,7 @@ const Equipment = () => {
           ))}
         </div>
       </div>
-      <div className={styles.belt}>
+      <div className={styles.belt} id="belt">
         <div>BELT SLOTS</div>
         {[...Array(10)].map((slot, i) => (
           <div key={i}>{state.belt[i]}</div>

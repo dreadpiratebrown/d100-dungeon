@@ -20,7 +20,7 @@ export const AdventureSheet = () => {
           <a href="#equipment">Equipment</a>
         </li>
         <li>
-          <a href="#secondary">Belt</a>
+          <a href="#belt">Belt</a>
         </li>
         <li>
           <a href="#skills">Skills</a>

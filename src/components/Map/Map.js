@@ -2,29 +2,49 @@ import { useEffect, useRef, useState } from "react";
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon, faPerson } from "@fortawesome/free-solid-svg-icons";
-import { Modal, Tile } from "../../components";
-import { tiles } from "../../shared/map";
-import { encounters } from "../../shared/encounters";
+import parse from "html-react-parser";
+import { messager } from "../../utils/messager";
+import { Tile, Toggle } from "../../components";
+import MiniSheet from "../AdventureSheet/MiniSheet";
+import { doors, encounters, tiles } from "../../shared";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
 export const Map = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   const [personPosition, setPersonPosition] = useState({ left: 0, top: 0 });
+  const [personGridLoc, setPersonGridLoc] = useState("");
+  const resumeRef = useRef(false);
   const personRef = useRef(null);
-  const mapTiles = useBoundStore((state) => state.mapTiles);
+  const resetMap = useBoundStore((state) => state.resetMap);
+  const resetTime = useBoundStore((state) => state.resetTime);
+  const addEventTxt = useBoundStore((state) => state.addEventTxt);
+  const passTime = useBoundStore((state) => state.passTime);
+  const timeTracker = useBoundStore((state) => state.currentQuest.timeTracker);
   const addMapTile = useBoundStore((state) => state.addMapTile);
   const addLocation = useBoundStore((state) => state.addLocation);
-  const resetMap = useBoundStore((state) => state.resetMap);
-  const modifier = useBoundStore((state) => state.currentQuest.modifier);
+  const mapTiles = useBoundStore((state) => state.mapTiles);
+  const modifier = useBoundStore((state) => state.modifier);
+  const eventHtml = useBoundStore((state) => state.eventHtml);
+  const heroPosition = useBoundStore((state) => state.heroPosition);
+  const setHeroPosition = useBoundStore((state) => state.setHeroPosition);
+  const oil = useBoundStore((state) => state.oil);
+  const food = useBoundStore((state) => state.food);
+  const picks = useBoundStore((state) => state.picks);
+  const setOil = useBoundStore((state) => state.setOil);
+  const setFood = useBoundStore((state) => state.setFood);
+  const setPicks = useBoundStore((state) => state.setPicks);
+  const darkness = useBoundStore((state) => state.currentQuest.darkness);
+  const toggleDarkness = useBoundStore((state) => state.toggleDarkness);
+  const setStrAdjusted = useBoundStore((state) => state.setStrAdjusted);
+  const setDexAdjusted = useBoundStore((state) => state.setDexAdjusted);
+  const setIntAdjusted = useBoundStore((state) => state.setIntAdjusted);
+  const setAdjustedHP = useBoundStore((state) => state.setAdjustedHP);
 
-  // useEffect(() => {
-  //   // Initialize map on component mount
-  //   resetMap();
-  // }, [resetMap]);
-
-  const startNewDungeon = () => {
+  const startNewDungeon = async () => {
     resetMap();
+    resetTime();
+    //setPersonPosition({ left: "-9999px", top: 0 });
+    resumeRef.current = false;
     // clear out all old possible exits
     const oldExits = document.querySelectorAll(`.${styles["grid"]} > div`);
     oldExits.forEach((exit) => {
@@ -34,14 +54,61 @@ export const Map = () => {
       delete exit.dataset.passage;
       delete exit.dataset.rotation;
       delete exit.dataset.tiled;
+      delete exit.dataset.door_open;
     });
     const roll = new DiceRoll("d100");
     const newTile = tiles.find((tile) => tile.d100 === roll.total);
 
     if (newTile) {
+      const currentTurn = 1;
+      addEventTxt(messager({ eventCode: "start" }));
+      addEventTxt(
+        messager({
+          eventCode: "turn",
+          turn: currentTurn,
+        })
+      );
+      await track(currentTurn);
+      addEventTxt(
+        messager({ eventCode: "move", roll: roll.total, direction: "north" })
+      );
+
       const copy = { ...newTile };
       copy.gridLocation = "grid190";
       copy.rotation = "0";
+      copy.exits.map((exit) => {
+        if (exit.type === "open") {
+          addEventTxt(
+            `<p>There is an exit to the ${
+              exit.wall === 1
+                ? "north.</p>"
+                : exit.wall === 2
+                ? "east.</p>"
+                : exit.wall === 3
+                ? "south.</p>"
+                : "west.</p>"
+            }`
+          );
+        }
+        if (exit.type === "door") {
+          const roll = new DiceRoll("d100");
+          const door = doors.find((door) => door.d100.includes(roll.total));
+          addEventTxt(
+            `<p>There is a door to the ${
+              exit.wall === 1
+                ? "north.</p>"
+                : exit.wall === 2
+                ? "east.</p>"
+                : exit.wall === 3
+                ? "south.</p>"
+                : "west.</p>"
+            }`
+          );
+          addEventTxt(`<p>${door.details} (${roll.total} - ${door.code})</p>`);
+          exit.code = door.code;
+          exit.doorOpen = door.code === "O" ? "true" : "false";
+        }
+      });
       addMapTile(copy);
       addLocation("grid190");
 
@@ -51,10 +118,11 @@ export const Map = () => {
 
       if (start) {
         start.dataset.tiled = true;
-        setPersonPosition({
+        setHeroPosition({
           left: start.offsetLeft,
           top: start.offsetTop + 16,
         });
+        setPersonGridLoc("grid190");
       }
 
       if (entrance) {
@@ -66,7 +134,61 @@ export const Map = () => {
       if (copy.color === "red") {
         rollEncounter();
       }
+
+      passTime();
     }
+  };
+
+  const track = (turn) => {
+    switch (turn % 12) {
+      case 1:
+      case 5:
+      case 9:
+        addEventTxt(messager({ eventCode: "oil" }));
+        break;
+      case 2:
+      case 4:
+      case 6:
+      case 8:
+      case 10:
+        resumeRef.current = true;
+        break;
+      case 3:
+        const roll4 = new DiceRoll("1d10");
+        if (roll4.total < 4) {
+          addEventTxt(messager({ eventCode: "encounter" }));
+        }
+        resumeRef.current = true;
+        break;
+      case 7:
+        const roll5 = new DiceRoll("1d10");
+        if (roll5.total < 5) {
+          addEventTxt(messager({ eventCode: "encounter" }));
+        }
+        resumeRef.current = true;
+        break;
+      case 11:
+        const roll6 = new DiceRoll("1d10");
+        if (roll6.total < 6) {
+          addEventTxt(messager({ eventCode: "encounter" }));
+        }
+        resumeRef.current = true;
+        break;
+      case 0:
+        addEventTxt(messager({ eventCode: "food" }));
+        break;
+      default:
+        break;
+    }
+    //passTime();
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (resumeRef.current) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 300);
+    });
   };
 
   const highlightExits = (exits, tile, rotation) => {
@@ -76,16 +198,16 @@ export const Map = () => {
       if (adjustedExit === 0) adjustedExit = 4;
       switch (adjustedExit) {
         case 1:
-          setExitAttribute(tileNum - 20, "north", "0");
+          setExitAttribute(tileNum - 20, "north", "0", exit?.doorOpen);
           break;
         case 2:
-          setExitAttribute(tileNum + 1, "east", "1");
+          setExitAttribute(tileNum + 1, "east", "1", exit?.doorOpen);
           break;
         case 3:
-          setExitAttribute(tileNum + 20, "south", "2");
+          setExitAttribute(tileNum + 20, "south", "2", exit?.doorOpen);
           break;
         case 4:
-          setExitAttribute(tileNum - 1, "west", "3");
+          setExitAttribute(tileNum - 1, "west", "3", exit?.doorOpen);
           break;
         default:
           break;
@@ -93,7 +215,12 @@ export const Map = () => {
     });
   };
 
-  const setExitAttribute = (tileNum, exitDirection, rotation) => {
+  const setExitAttribute = (
+    tileNum,
+    exitDirection,
+    rotation,
+    doorOpen = "true"
+  ) => {
     const tileElement = document.getElementById(`grid${tileNum}`);
     if (
       tileElement &&
@@ -102,6 +229,7 @@ export const Map = () => {
     ) {
       tileElement.setAttribute("data-exit", exitDirection);
       tileElement.setAttribute("data-rotation", rotation);
+      tileElement.setAttribute("data-door_open", doorOpen);
       tileElement.classList.add(styles["possibleExit"]);
     }
   };
@@ -110,10 +238,8 @@ export const Map = () => {
     const remainingExits = document.querySelectorAll(
       `.${styles["possibleExit"]}`
     );
-    console.log("remaining exits", remainingExits);
-    console.log("map tiles", mapTiles);
     if (remainingExits.length === 0 && mapTiles.length > 0) {
-      setModalOpen(true);
+      addEventTxt(messager({ eventCode: "blocked" }));
       mapTiles.forEach((tile) => {
         highlightPassageTile(tile.gridLocation);
       });
@@ -138,16 +264,99 @@ export const Map = () => {
     });
   };
 
-  const addNewTile = (event) => {
-    const { exit, passage } = event.target.dataset;
+  const addNewTile = async (event) => {
+    resumeRef.current = false;
+    addEventTxt("<hr />");
+    const { exit, passage, door_open, tiled } = event.currentTarget.dataset;
+    if (door_open === "false") {
+      addEventTxt(messager({ eventCode: "door_shut" }));
+      return false;
+    }
+    if (tiled) {
+      const destination = parseInt(event.currentTarget.id.replace("grid", ""));
+      const currentLoc = parseInt(
+        personRef.current.dataset.current_square.replace("grid", "")
+      );
+      const move = destination - currentLoc;
+      if (move === 1 || move === -1 || move === 20 || move === -20) {
+        setHeroPosition({
+          left: event.currentTarget.offsetLeft,
+          top: event.currentTarget.offsetTop + 16,
+        });
+        setPersonGridLoc(event.currentTarget.id);
+        const currentTurn = timeTracker + 1;
+        addEventTxt(
+          messager({
+            eventCode: "turn",
+            turn: currentTurn,
+          })
+        );
+        await track(currentTurn);
+        passTime();
+        return false;
+      } else {
+        addEventTxt(messager({ eventCode: "invalid_move" }));
+        return false;
+      }
+    }
     if (exit || passage) {
+      const currentTurn = timeTracker + 1;
       const roll = new DiceRoll("d100");
       const newTile = tiles.find((tile) => tile.d100 === roll.total);
+
+      addEventTxt(
+        messager({
+          eventCode: "turn",
+          turn: currentTurn,
+        })
+      );
+      await track(currentTurn);
+
+      addEventTxt(
+        messager({ eventCode: "move", roll: roll.total, direction: exit })
+      );
       if (newTile) {
         const copy = { ...newTile };
         copy.gridLocation = event.target.id;
         copy.rotation = event.target.dataset.rotation;
         event.target.dataset.tiled = true;
+        copy.exits.map((exit) => {
+          let adjustedExit = (exit.wall + (copy.rotation % 4)) % 4;
+          if (adjustedExit === 0) adjustedExit = 4;
+          if (exit.type === "open") {
+            addEventTxt(
+              `<p>There is an exit to the ${
+                adjustedExit === 1
+                  ? "north.</p>"
+                  : adjustedExit === 2
+                  ? "east.</p>"
+                  : adjustedExit === 3
+                  ? "south.</p>"
+                  : "west.</p>"
+              }`
+            );
+          }
+          if (exit.type === "door") {
+            const roll = new DiceRoll("d100");
+            const door = doors.find((door) => door.d100.includes(roll.total));
+            addEventTxt(
+              `<p>There is a door to the ${
+                adjustedExit === 1
+                  ? "north.</p>"
+                  : adjustedExit === 2
+                  ? "east.</p>"
+                  : adjustedExit === 3
+                  ? "south.</p>"
+                  : "west.</p>"
+              }`
+            );
+            addEventTxt(
+              `<p>${door.details} (${roll.total} - ${door.code})</p>`
+            );
+            exit.code = door.code;
+            exit.doorOpen = door.code === "O" ? true : false;
+          }
+        });
         highlightExits(
           copy.exits,
           event.target.id,
@@ -162,26 +371,59 @@ export const Map = () => {
             passage.classList.remove(styles["secretPassage"]);
             delete passage.dataset.passage;
           });
-        setPersonPosition({
+        setHeroPosition({
           left: event.target.offsetLeft,
           top: event.target.offsetTop + 16,
         });
+        setPersonGridLoc(event.target.id);
+
+        passTime();
       }
     }
   };
 
   const rollEncounter = () => {
     const roll = new DiceRoll("d100");
-    console.log("roll", roll.total);
     const modifiedRoll =
       roll.total + modifier <= 0
         ? 1
         : roll.total + modifier > 100
         ? 100
         : roll.total + modifier;
-    console.log("modified roll", modifiedRoll);
     const encounter = encounters.find((e) => e.d100.includes(modifiedRoll));
-    console.log(encounter);
+  };
+
+  const handleOil = (choice) => {
+    if (choice === "yes") {
+      setOil(-1);
+      if (darkness) {
+        toggleDarkness();
+        setStrAdjusted(20);
+        setDexAdjusted(20);
+        setIntAdjusted(20);
+        addEventTxt(messager({ eventCode: "lift_darkness" }));
+      }
+    } else {
+      if (!darkness) {
+        toggleDarkness();
+        setStrAdjusted(-20);
+        setDexAdjusted(-20);
+        setIntAdjusted(-20);
+        addEventTxt(messager({ eventCode: "set_darkness" }));
+      }
+    }
+    resumeRef.current = true;
+  };
+
+  const handleFood = (choice) => {
+    if (choice === "yes") {
+      setFood(-1);
+      addEventTxt(messager({ eventCode: "eat_food" }));
+    } else {
+      setAdjustedHP(-5);
+      addEventTxt(messager({ eventCode: "no_food" }));
+    }
+    resumeRef.current = true;
   };
 
   useEffect(() => {
@@ -191,17 +433,6 @@ export const Map = () => {
     });
     highlightPassages();
   }, [mapTiles]);
-
-  useEffect(() => {
-    // Set initial position of personRef
-    const start = document.getElementById("grid190");
-    if (start) {
-      setPersonPosition({
-        left: start.offsetLeft,
-        top: start.offsetTop + 16,
-      });
-    }
-  }, []);
 
   return (
     <div className={styles.mapWrapper}>
@@ -233,20 +464,107 @@ export const Map = () => {
         </div>
         <div className={styles.eventTracker}>
           <h3>Events</h3>
+          <div className={styles.logScroll}>
+            {eventHtml.map((message) =>
+              parse(message, {
+                replace(domNode) {
+                  if (domNode.attribs && domNode.attribs.id === "oilReplace") {
+                    return (
+                      <>
+                        <button
+                          onClick={() => handleOil("yes")}
+                          disabled={oil === 0}
+                        >
+                          Yes
+                        </button>
+                        <button onClick={() => handleOil("no")}>No</button>
+                      </>
+                    );
+                  }
+                  if (domNode.attribs && domNode.attribs.id === "foodReplace") {
+                    return (
+                      <>
+                        <button
+                          onClick={() => handleFood("yes")}
+                          disabled={food === 0}
+                        >
+                          Yes
+                        </button>
+                        <button onClick={() => handleFood("no")}>No</button>
+                      </>
+                    );
+                  }
+                },
+              })
+            )}
+          </div>
+          <MiniSheet />
+          OIL
+          <br />
+          {[...Array(20)].map((toggle, i) => (
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= oil}
+              tracker={i + 1 <= oil ? () => setOil(-1) : () => setOil(1)}
+              flag="darkness"
+            />
+          ))}
+          <br />
+          FOOD
+          <br />
+          {[...Array(10)].map((toggle, i) => (
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= food}
+              tracker={i + 1 <= food ? () => setFood(-1) : () => setFood(1)}
+            />
+          ))}
+          <br />
+          PICKS
+          <br />
+          {[...Array(30)].map((toggle, i) => (
+            <Toggle
+              mode="pip"
+              key={i}
+              defaultChecked={i + 1 <= picks}
+              tracker={i + 1 <= picks ? () => setPicks(-1) : () => setPicks(1)}
+            />
+          ))}
+          <br />
+          KEYS
+          <br />
+          {[...Array(10)].map((toggle, i) => (
+            <Toggle mode="pip" key={i} />
+          ))}
+          <br />
+          LEVERS
+          <br />
+          {[...Array(10)].map((toggle, i) => (
+            <Toggle mode="pip" key={i} />
+          ))}
+          <br />
+          POISON
+          <br />
+          {[...Array(10)].map((toggle, i) => (
+            <Toggle mode="pip" key={i} />
+          ))}
+          <br />
+          DISEASE
+          <br />
+          {[...Array(10)].map((toggle, i) => (
+            <Toggle mode="pip" key={i} />
+          ))}
         </div>
       </div>
       <FontAwesomeIcon
         ref={personRef}
         icon={faPerson}
         className={styles.hero}
-        style={{ left: personPosition.left, top: personPosition.top }}
+        style={{ left: heroPosition.left, top: heroPosition.top }}
+        data-current_square={personGridLoc}
       />
-      <Modal openModal={modalOpen} closeModal={() => setModalOpen(false)}>
-        <p>
-          There are no more possible exits. Click any yellow tile to create a
-          secret passage.
-        </p>
-      </Modal>
     </div>
   );
 };
