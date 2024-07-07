@@ -1,18 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DiceRoll } from "@dice-roller/rpg-dice-roller";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon, faPerson } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
 import { messager } from "../../utils/messager";
-import { Tile, Toggle } from "../../components";
+import { Modal, RoomActions, Tile, Toggle } from "../../components";
 import MiniSheet from "../AdventureSheet/MiniSheet";
-import { doors, encounters, tiles } from "../../shared";
+import { doors, encounters, geography, tiles } from "../../shared";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
 export const Map = () => {
-  const [personPosition, setPersonPosition] = useState({ left: 0, top: 0 });
   const [personGridLoc, setPersonGridLoc] = useState("");
+  const [modal, setModal] = useState(false);
+  const [currentRoom, setCurrentRoom] = useState({});
   const resumeRef = useRef(false);
   const personRef = useRef(null);
   const resetMap = useBoundStore((state) => state.resetMap);
@@ -109,6 +110,7 @@ export const Map = () => {
           exit.doorOpen = door.code === "O" ? "true" : "false";
         }
       });
+      setCurrentRoom(copy);
       addMapTile(copy);
       addLocation("grid190");
 
@@ -130,6 +132,8 @@ export const Map = () => {
       }
 
       highlightExits(copy.exits, copy.gridLocation, copy.rotation);
+
+      setModal(true);
 
       if (copy.color === "red") {
         rollEncounter();
@@ -377,6 +381,10 @@ export const Map = () => {
         });
         setPersonGridLoc(event.target.id);
 
+        if (copy.color === "red") {
+          rollEncounter();
+        }
+
         passTime();
       }
     }
@@ -565,6 +573,16 @@ export const Map = () => {
         style={{ left: heroPosition.left, top: heroPosition.top }}
         data-current_square={personGridLoc}
       />
+      <Modal openModal={modal} closeModal={() => setModal(false)}>
+        ROOM ACTIONS
+        <ul>
+          <li>Door actions</li>
+          <li>Search action</li>
+          <li>Geographic features</li>
+          <li>Encounters</li>
+        </ul>
+        <RoomActions room={currentRoom} />
+      </Modal>
     </div>
   );
 };

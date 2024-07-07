@@ -11,3 +11,8 @@
 - Refactor MiniSheet to work with both Adventurer sheet & Map
 
 ### Combat
+
+### Miscellaneous
+
+- Belt can't have more than 10 items
+- Remove item from belt
