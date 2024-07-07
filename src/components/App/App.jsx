@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon } from "@fortawesome/free-solid-svg-icons";
-import { AdventureSheet, Map, Modal } from "../../components";
+import { AdventureSheet, Map, Modal } from "..";
 import { useBoundStore } from "../../store/boundStore";
 import Characteristics from "../Setup/Characteristics";
 import Path from "../Setup/Path";
