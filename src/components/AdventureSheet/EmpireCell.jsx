@@ -1,4 +1,4 @@
-import { Toggle } from "../../components";
+import { Toggle } from "..";
 
 const EmpireCell = ({ share, pip }) => {
   return (

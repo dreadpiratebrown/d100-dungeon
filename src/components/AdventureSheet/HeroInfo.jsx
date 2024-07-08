@@ -1,5 +1,5 @@
-import { ReactComponent as SunLight } from "./assets/sun-light.svg";
-import { ReactComponent as SunDark } from "./assets/sun-dark.svg";
+import SunLight from "./assets/sun-light.svg?react";
+import SunDark from "./assets/sun-dark.svg?react";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 

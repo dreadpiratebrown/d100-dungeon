@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDungeon, faPerson } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
 import { messager } from "../../utils/messager";
-import { Modal, RoomActions, Tile, Toggle } from "../../components";
+import { Modal, RoomActions, Tile, Toggle } from "..";
 import MiniSheet from "../AdventureSheet/MiniSheet";
 import { doors, encounters, geography, tiles } from "../../shared";
 import { useBoundStore } from "../../store/boundStore";

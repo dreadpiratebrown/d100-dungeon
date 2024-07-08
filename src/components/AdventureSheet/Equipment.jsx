@@ -1,5 +1,5 @@
 import EquipmentRow from "./EquipmentRow";
-import { Toggle } from "../../components";
+import { Toggle } from "..";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
