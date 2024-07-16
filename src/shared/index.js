@@ -4,5 +4,6 @@ export * from "./encounters";
 export * from "./geography";
 export * from "./items";
 export * from "./map";
+export * from "./needed";
 export * from "./quests";
 export * from "./weapons";
