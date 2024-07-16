@@ -62,6 +62,7 @@ export const geography = [
   {
     d100: [6],
     name: "Pit Trap",
+    component: "pit_trap",
     desc: "Part of the dunegon floor has been rigged to fall away, dropping anyone foolish enough into a deep pit.",
     test: {
       attr: "dex",
@@ -73,6 +74,7 @@ export const geography = [
   {
     d100: [7],
     name: "Cave In Trap",
+    component: "cave_in_trap",
     desc: "Part of the ceiling has been rigged to collapse, showering the adventurer with rocks and debris.",
     test: {
       attr: "dex",
@@ -84,6 +86,7 @@ export const geography = [
   {
     d100: [8],
     name: "Spear Trap",
+    component: "spear_trap",
     desc: "Spears have been set to shoot out from hidden holes in the dungeon wall.",
     test: {
       attr: "dex",
@@ -95,7 +98,8 @@ export const geography = [
   {
     d100: [9],
     name: "Fire Trap",
-    desc: "A short burst of scorching hot flame has been set to shoot out from hidden slots in the dungeone wall.",
+    component: "fire_trap",
+    desc: "A short burst of scorching hot flame has been set to shoot out from hidden slots in the dungeon wall.",
     test: {
       attr: "dex",
       mod: -5,
@@ -106,6 +110,7 @@ export const geography = [
   {
     d100: [10],
     name: "Crossfire Trap",
+    component: "crossfire_trap",
     desc: "Arrows have been set to shoot out from hidden holes in the dungeon wall.",
     test: {
       attr: "dex",
@@ -117,6 +122,7 @@ export const geography = [
   {
     d100: [11],
     name: "Cage Trap",
+    component: "cage_trap",
     desc: "A huge cage, hidden from view, has been suspended from the ceiling high above and will drop down over anyone walking by.",
     test: {
       attr: "dex",
@@ -128,6 +134,7 @@ export const geography = [
   {
     d100: [12, 13, 14, 15],
     name: "Barrels",
+    component: "barrels_one",
     desc: "The area contains a number of barrels. Search them?",
     roll: [
       {
@@ -160,12 +167,14 @@ export const geography = [
   {
     d100: [16],
     name: "Spider's Webs",
+    component: "spiders_webs",
     desc: "The area is covered by thick sticky strands of a giant spider's web, which makes movement through the area time consuming and difficult. Casting a successful Fire Blast or Fire Ball spell/scroll in the area will destroy the webs.",
     effect: ["webs"],
   },
   {
     d100: [17],
     name: "Moss",
+    component: "moss",
     desc: "The dungeon floor is completely covered in a damp, spongy moss.",
     persist: true,
     roll: [
@@ -183,7 +192,7 @@ export const geography = [
       },
       {
         d10: [3, 4],
-        name: "Slipper",
+        name: "Slippery",
         desc: "The moss is very slippery, making movement through the section difficult.",
         test: {
           attr: "dex",
@@ -209,6 +218,7 @@ export const geography = [
   {
     d100: [18],
     name: "Rope Bridge",
+    component: "rope_bridge_one",
     desc: "A huge area of the dungeon floor has at one time collapsed, leaving behind a deep void running from the top right hand corner to the bottom left hand corner of this area. At some time someone, or something, has erected a crude rope bridge that now provides the only way across this bottomless gorge.",
     persist: true,
     test: {
@@ -221,6 +231,7 @@ export const geography = [
   {
     d100: [19, 20, 21, 22],
     name: "Trapped Chest",
+    component: "trapped_chest_one",
     desc: "A large wooden chest banded with golden trim sits proudly waiting to be opened. The adventurer may try and open the chest by making a TRAPPED CHEST test as many times as they wish until it is opened.",
     test: {
       attr: "dex",
@@ -233,6 +244,7 @@ export const geography = [
   {
     d100: [23, 24],
     name: "Lever",
+    component: "lever_one",
     desc: "In a secluded part of the dungeon the adventurer find a lever protruding from the wall.",
     roll: [
       {
@@ -254,6 +266,7 @@ export const geography = [
   {
     d100: [25],
     name: "Lava",
+    component: "lava",
     desc: "Pools of glowing hot lava gurgle and bubble all around, and every few seconds pieces of rock explode into fragments, sending hot lava in all directions.",
     persist: true,
     test: {
@@ -267,6 +280,7 @@ export const geography = [
   {
     d100: [26, 27, 28, 29],
     name: "Locked Chest",
+    component: "locked_chest_one",
     desc: "A large wooden chest banded with golden trim sits proudly waiting to be opened. If the adventurer does not have the key, they may attempt to open the chest as many times as they wish until it is opened as long as they have a pick.",
     uses: "keys",
     test: {
@@ -280,6 +294,7 @@ export const geography = [
   {
     d100: [30],
     name: "Rope Bridge",
+    component: "rope_bridge_two",
     desc: "A huge area of the dungeon floor has at one time collapsed, leaving behind a deep void running from the top left hand corner to the bottom right hand corner of this area. At some time someone, or something, has erected a crude rope bridge that now provides the only way across this bottomless gorge.",
     persist: true,
     test: {
@@ -292,6 +307,7 @@ export const geography = [
   {
     d100: [31],
     name: "Bottomless Pit",
+    component: "bottomless_pit",
     desc: "A deep pit, probably once a mine shaft, blocks the way to all other exits. The pit seems to go on forever, which suggests it's a waste of time trying to descend. The only way to leave this area other than the way you came is to jump the pit.",
     persist: true,
     test: {
@@ -304,6 +320,7 @@ export const geography = [
   {
     d100: [32],
     name: "Cave In",
+    component: "cave_in",
     desc: "The entire ceiling begins to cave in, luckily you manage to find a spot that is protected from the falling rock and wait it out. As the dust settles it is clear the entire area is now buried in rock and all the exits are blocked. After some considerable time you manage to retrace your steps and return to the area you were last in.",
     persist: true,
     effect: ["time+3", "blocked"],
@@ -311,6 +328,7 @@ export const geography = [
   {
     d100: [33, 34, 35],
     name: "Barrels",
+    component: "barrels_two",
     desc: "The area contains a number of barrels. Search them?",
     roll: [
       {
@@ -343,6 +361,7 @@ export const geography = [
   {
     d100: [36, 37, 38, 39, 40],
     name: "Lever",
+    component: "lever_two",
     desc: "In a secluded part of the dungeon you find a lever protruding from the wall.",
     roll: [
       {
@@ -364,6 +383,7 @@ export const geography = [
   {
     d100: [41],
     name: "River",
+    component: "river_one",
     desc: "A fast flowing river is running from the top left hand corner to the bottom right hand corner of this area and will need to be crossed to proceed through any exits on the other side.",
     persist: true,
     test: {
@@ -376,6 +396,7 @@ export const geography = [
   {
     d100: [42],
     name: "Trapped Chest",
+    component: "trapped_chest_two",
     desc: "A large wooden chest banded with silver trim sits proudly waiting to be opened. The adventurer may try and open the chest by making a TRAPPED CHEST test as many times as they wish until it is opened.",
     test: {
       attr: "dex",
@@ -388,6 +409,7 @@ export const geography = [
   {
     d100: [43],
     name: "Locked Chest",
+    component: "locked_chest_two",
     desc: "A large wooden chest banded with silver trim sits proudly waiting to be opened. If the adventurer does not have the key, they may attempt to open the chest as many times as they wish until it is opened as long as they have a pick.",
     uses: "keys",
     test: {
@@ -401,6 +423,7 @@ export const geography = [
   {
     d100: [44],
     name: "River",
+    component: "river_two",
     desc: "A fast flowing river is running from the top right hand corner to the bottom left hand corner of this area and will need to be crossed to proceed through any exits on the other side.",
     persist: true,
     test: {
@@ -413,6 +436,7 @@ export const geography = [
   {
     d100: [45, 46, 47, 48],
     name: "Trapped Chest",
+    component: "trapped_chest_three",
     desc: "A large wooden chest banded with iron trim sits proudly waiting to be opened. The adventurer may try and open the chest by making a TRAPPED CHEST test as many times as they wish until it is opened.",
     test: {
       attr: "dex",
@@ -425,6 +449,7 @@ export const geography = [
   {
     d100: [49],
     name: "Portcullis",
+    component: "portcullis",
     desc: "A large iron portcullis blocks the way across the entrance to this area of the dungeon, and will need to be lifted and wedged open, or you will be forced to retreat. You may attempt to lift the portcullis as many times as you wish until it is lifted, or you give up trying.",
     effect: "blocked",
     test: {
@@ -437,6 +462,7 @@ export const geography = [
   {
     d100: [50],
     name: "Barrels",
+    component: "barrels_three",
     desc: "The area contains a number of barrels. Search them?",
     roll: [
       {
@@ -469,6 +495,7 @@ export const geography = [
   {
     d100: [51],
     name: "Boulder",
+    component: "boulder",
     desc: "A large boulder blocks the way through this area of the dungeon, and will need to be moved, or you will be forced to retreat. You may attempt to move the boulder as many times as you wish until it is moved, or you give up trying.",
     effect: "blocked",
     test: {
@@ -481,6 +508,7 @@ export const geography = [
   {
     d100: [52, 53],
     name: "Lever",
+    component: "lever_three",
     desc: "In a secluded part of the dungeon you find a lever protruding from the wall.",
     roll: [
       {
@@ -497,6 +525,7 @@ export const geography = [
   {
     d100: [54],
     name: "Crypt",
+    component: "crypt",
     desc: "The area is dank and foul smelling. All around are tombs which have been disturbed and still hold remains of the dead. One sarcophagus catches the eye as it is still intact. Open it?",
     roll: [
       {
@@ -519,6 +548,7 @@ export const geography = [
   {
     d100: [55, 56, 57, 58],
     name: "Locked Chest",
+    component: "locked_chest_three",
     desc: "A large wooden chest banded with iron trim sits proudly waiting to be opened. If the adventurer does not have the key, they may attempt to open the chest as many times as they wish until it is opened as long as they have a pick.",
     uses: "keys",
     test: {
@@ -532,11 +562,13 @@ export const geography = [
   {
     d100: [59],
     name: "Chasm",
+    component: "chasm_one",
     desc: "A vast chasm crosses from the top left hand corner to the bottom right hand corner of this area. It it so vast and deep it cannot be crossed and exits on the opposite side of the chasm cannot be used.",
   },
   {
     d100: [60, 61, 62],
     name: "Carved Circle",
+    component: "carved_circle",
     desc: "A large circle has been carved into the dungeon floor. Stand on it?",
     roll: [
       {
@@ -569,17 +601,20 @@ export const geography = [
   {
     d100: [63, 64],
     name: "Forge",
+    component: "forge",
     desc: "This part of the dungeon was once used as a forge and workshop. Everything is a little rusty now but some of the weapons and armor that were left behind could be of some use.",
     effect: ["armor", "weapons"],
   },
   {
     d100: [65],
     name: "Chasm",
+    component: "chasm_two",
     desc: "A vast chasm crosses from the top right hand corner to the bottom left hand corner of this area. It it so vast and deep it cannot be crossed and exits on the opposite side of the chasm cannot be used.",
   },
   {
     d100: [66, 67, 68, 69],
     name: "Fountain",
+    component: "fountain",
     desc: "A strangely colored glowing liquid pours from holes in the wals and flows to a central fountain. A wooden cup resting on a platform nearby invites all to sample its delights. Drink?",
     roll: [
       {
@@ -602,6 +637,7 @@ export const geography = [
   {
     d100: [70],
     name: "Tree",
+    component: "tree",
     desc: "Rooted in the center of the dungeon floor is an enormous tree with long spreading branches and bright green leaves. Beautiful white flowers grow from most branches and they project a soft yellow glow that pulsates as you move. Pick a flower?",
     roll: [
       {
@@ -634,6 +670,7 @@ export const geography = [
   {
     d100: [71],
     name: "Mushrooms",
+    component: "mushrooms",
     desc: "The whole area is home to some strange looking mushrooms. They are growing everywhere, and as you move through them their stalks twist and turn trying to get close. Eat some?",
     roll: [
       {
@@ -666,6 +703,7 @@ export const geography = [
   {
     d100: [72, 73, 74],
     name: "Barrels",
+    component: "barrels_four",
     desc: "The area contains a number of barrels. Search them?",
     roll: [
       {
@@ -698,6 +736,7 @@ export const geography = [
   {
     d100: [75, 76, 77],
     name: "Lever",
+    component: "lever_four",
     desc: "In a secluded part of the dungeon you find a lever protruding from the wall.",
     roll: [
       {
@@ -714,6 +753,7 @@ export const geography = [
   {
     d100: [78],
     name: "Locked Chest",
+    component: "locked_chest_four",
     desc: "A large wooden chest banded with wooden trim sits proudly waiting to be opened. If the adventurer does not have the key, they may attempt to open the chest as many times as they wish until it is opened as long as they have a pick.",
     uses: "keys",
     test: {
@@ -727,6 +767,7 @@ export const geography = [
   {
     d100: [79],
     name: "Shrine",
+    component: "shrine",
     desc: "A magnificent shrine stands alone and offers a place of worship. Pray to your deity?",
     roll: [
       {
@@ -749,6 +790,7 @@ export const geography = [
   {
     d100: [80],
     name: "Trapped Chest",
+    component: "trapped_chest_four",
     desc: "A large wooden chest banded with wooden trim sits proudly waiting to be opened. The adventurer may try and open the chest by making a TRAPPED CHEST test as many times as they wish until it is opened.",
     test: {
       attr: "dex",
@@ -761,6 +803,7 @@ export const geography = [
   {
     d100: [81],
     name: "Altar",
+    component: "altar",
     desc: "An altar has been set out for sacrificial purpose. Pray to your deity?",
     roll: [
       {
@@ -783,12 +826,14 @@ export const geography = [
   {
     d100: [82, 83],
     name: "Treasure Hunter",
+    component: "treasure_hunter",
     desc: "You come across a fellow treasure hunter who is just leaving the dungeon. After some time chatting about conquests, he offers to sell some of his items.",
     effect: ["neededx5"],
   },
   {
     d100: [84, 85, 86, 87],
     name: "Lever",
+    component: "lever_five",
     desc: "In a secluded part of the dungeon you find a lever protruding from the wall.",
     roll: [
       {
@@ -803,13 +848,15 @@ export const geography = [
     ],
   },
   {
-    d100: [88, 90],
+    d100: [88, 89, 90],
     name: "Stairs",
+    component: "stairs",
     desc: "The chamber contains a large staircase leading down to another part of the dungeon.",
   },
   {
     d100: [91, 92],
     name: "Locked Chest",
+    component: "locked_chest_five",
     desc: "A large wooden chest sits proudly waiting to be opened. If the adventurer does not have the key, they may attempt to open the chest as many times as they wish until it is opened as long as they have a pick.",
     uses: "keys",
     test: {
@@ -823,6 +870,7 @@ export const geography = [
   {
     d100: [93, 94, 95],
     name: "Trapped Chest",
+    component: "trapped_chest_five",
     desc: "A large wooden chest sits proudly waiting to be opened. The adventurer may try and open the chest by making a TRAPPED CHEST test as many times as they wish until it is opened.",
     test: {
       attr: "dex",
@@ -835,6 +883,7 @@ export const geography = [
   {
     d100: [96, 97],
     name: "Grate",
+    component: "grate",
     desc: "Recessed in the floor is a small grate and after a quick search you find it is covering a narrow pit filled with muck. Something buried in the dirt catches the eye.",
     test: {
       attr: "str",
@@ -864,18 +913,21 @@ export const geography = [
   {
     d100: [98],
     name: "Treasure Trove",
+    component: "treasure_trove_one",
     desc: "You stumble into an area filled with treasures.",
     effect: ["gold[d100x5]", "ta"],
   },
   {
     d100: [99],
     name: "Treasure Trove",
+    component: "treasure_trove_two",
     desc: "You stumble into an area filled with treasures.",
     effect: ["gold[d100x10]", "tb||tax2"],
   },
   {
     d100: [100],
     name: "Treasure Trove",
+    component: "treasure_trove_three",
     desc: "You stumble into an area filled with treasures.",
     effect: ["gold[d100x20]", "tc||tbx2||tax3"],
   },

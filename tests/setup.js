@@ -1,6 +1,7 @@
-import { afterEach } from "vitest";
+import { afterEach, expect } from "vitest";
 import { cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import matchers from "@testing-library/jest-dom/matchers";
 
 beforeAll(() => {
   HTMLDialogElement.prototype.show = vi.fn();
@@ -11,3 +12,5 @@ beforeAll(() => {
 afterEach(() => {
   cleanup();
 });
+
+expect.extend(matchers);

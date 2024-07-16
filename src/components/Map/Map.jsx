@@ -6,7 +6,7 @@ import parse from "html-react-parser";
 import { messager } from "../../utils/messager";
 import { Modal, RoomActions, Tile, Toggle } from "..";
 import MiniSheet from "../AdventureSheet/MiniSheet";
-import { doors, encounters, geography, tiles } from "../../shared";
+import { doors, encounters, tiles } from "../../shared";
 import { useBoundStore } from "../../store/boundStore";
 import styles from "./styles.module.css";
 
@@ -77,6 +77,7 @@ export const Map = () => {
       const copy = { ...newTile };
       copy.gridLocation = "grid190";
       copy.rotation = "0";
+      copy.tiled = true;
       copy.exits.map((exit) => {
         if (exit.type === "open") {
           addEventTxt(
@@ -288,6 +289,11 @@ export const Map = () => {
           top: event.currentTarget.offsetTop + 16,
         });
         setPersonGridLoc(event.currentTarget.id);
+        // get new room and set state
+        const room = mapTiles.find(
+          (tile) => tile.gridLocation === event.currentTarget.id
+        );
+        setCurrentRoom(room);
         const currentTurn = timeTracker + 1;
         addEventTxt(
           messager({
@@ -297,6 +303,8 @@ export const Map = () => {
         );
         await track(currentTurn);
         passTime();
+        // show room actions
+        setModal(true);
         return false;
       } else {
         addEventTxt(messager({ eventCode: "invalid_move" }));
@@ -323,6 +331,7 @@ export const Map = () => {
         const copy = { ...newTile };
         copy.gridLocation = event.target.id;
         copy.rotation = event.target.dataset.rotation;
+        copy.tiled = true;
         event.target.dataset.tiled = true;
         copy.exits.map((exit) => {
           let adjustedExit = (exit.wall + (copy.rotation % 4)) % 4;
@@ -367,6 +376,7 @@ export const Map = () => {
           event.target.dataset.rotation
         );
         event.target.classList.remove(styles["possibleExit"]);
+        setCurrentRoom(copy);
         addMapTile(copy);
         addLocation(event.target.id);
         document
@@ -380,6 +390,8 @@ export const Map = () => {
           top: event.target.offsetTop + 16,
         });
         setPersonGridLoc(event.target.id);
+
+        setModal(true);
 
         if (copy.color === "red") {
           rollEncounter();
@@ -454,6 +466,9 @@ export const Map = () => {
               id={`grid${i}`}
               key={i}
               onClick={addNewTile}
+              data-tiled={
+                mapTiles.find((tile) => tile.gridLocation === `grid${i}`)?.tiled
+              }
             >
               {mapTiles.some((tile) => tile.gridLocation === `grid${i}`) && (
                 <Tile
