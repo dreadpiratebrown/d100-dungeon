@@ -67,8 +67,7 @@ export const RoomActions = ({ room }) => {
   useEffect(() => {
     setFeature(null);
     if (room.color === "green") {
-      //const roll = new DiceRoll("d100");
-      const roll = { total: 1 };
+      const roll = new DiceRoll("d100");
       const newFeature = geography.find((g) => g.d100.includes(roll.total));
       setFeature(newFeature);
     }

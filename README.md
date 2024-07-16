@@ -20,7 +20,6 @@
 - Belt can't have more than 10 items
 - Remove item from belt
 - Needed table
-- Items table
 - Treasure tables
 - Curse and boosts tables
 - Crit rolls (1 success, 100 fail)
@@ -30,3 +29,7 @@
 - Backpack rows without damage track
 - Stairs?
 - Item unit words - a, an, some, etc.
+- Potions
+- Skill book
+- Skeleton key
+- Items table - treasure
