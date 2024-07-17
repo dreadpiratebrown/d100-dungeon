@@ -6,4 +6,7 @@ export * from "./items";
 export * from "./map";
 export * from "./needed";
 export * from "./quests";
+export * from "./ta";
+export * from "./tb";
+export * from "./tc";
 export * from "./weapons";

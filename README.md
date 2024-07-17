@@ -19,7 +19,6 @@
 
 - Belt can't have more than 10 items
 - Remove item from belt
-- Treasure tables
 - Curse and boosts tables
 - Crit rolls (1 success, 100 fail)
 - Experience gain if natural is <= 10
