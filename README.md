@@ -31,3 +31,4 @@
 - Skill book
 - Skeleton key
 - Items table - treasure
+- Stat & skill experience trackers
